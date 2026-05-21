@@ -1,0 +1,12 @@
+.DS_Store
+/node_modules/
+/.react-router/
+/build/
+/dist-electron/
+/prod_modules_test/
+*.pak
+*.dat
+*.bin
+build-log.txt
+build-log.txtcd
+prod-install-log.txt

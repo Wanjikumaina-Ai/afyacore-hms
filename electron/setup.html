@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AfyaCore — Setup</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #0B1D3A;
+      --green:  #22C55E;
+      --green2: #16A34A;
+      --light:  #F0FDF4;
+      --border: #E2E8F0;
+      --text:   #0F172A;
+      --muted:  #64748B;
+      --error:  #EF4444;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #F8FAFC;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+    }
+
+    .card {
+      width: 560px;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(11,29,58,0.12);
+      overflow: hidden;
+    }
+
+    .header {
+      background: var(--navy);
+      padding: 32px 40px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 180px; height: 180px;
+      border-radius: 50%;
+      background: rgba(34,197,94,0.12);
+    }
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: -30px; left: 60px;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: rgba(34,197,94,0.07);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+    }
+    .logo-icon {
+      width: 44px; height: 44px;
+      background: var(--green);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .logo-icon svg { width: 26px; height: 26px; color: #fff; }
+    .logo-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      color: #fff;
+      letter-spacing: -0.3px;
+    }
+    .logo-name span { color: var(--green); }
+
+    .header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px;
+      color: #fff;
+      position: relative; z-index: 1;
+      line-height: 1.3;
+    }
+    .header p {
+      color: rgba(255,255,255,0.6);
+      font-size: 13px;
+      margin-top: 6px;
+      position: relative; z-index: 1;
+    }
+
+    .steps {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .step {
+      flex: 1;
+      padding: 14px 20px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      text-align: center;
+      border-bottom: 2px solid transparent;
+      transition: all .2s;
+    }
+    .step.active {
+      color: var(--navy);
+      border-color: var(--green);
+    }
+    .step.done { color: var(--green); }
+
+    .body {
+      padding: 32px 40px;
+    }
+
+    .section { display: none; }
+    .section.visible { display: block; }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .section-sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .field { margin-bottom: 16px; }
+    label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    input {
+      width: 100%;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      background: #FAFAFA;
+      transition: border-color .2s, background .2s;
+      outline: none;
+    }
+    input:focus {
+      border-color: var(--navy);
+      background: #fff;
+    }
+    input.error-field { border-color: var(--error); }
+
+    .hint {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 5px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 28px;
+    }
+
+    .btn {
+      padding: 11px 28px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      border: none;
+      transition: all .2s;
+    }
+    .btn-primary {
+      background: var(--navy);
+      color: #fff;
+    }
+    .btn-primary:hover { background: #162d5a; }
+    .btn-primary:disabled { opacity: .5; cursor: not-allowed; }
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1.5px solid var(--border);
+    }
+    .btn-ghost:hover { border-color: var(--navy); color: var(--navy); }
+
+    .error-msg {
+      background: #FEF2F2;
+      border: 1px solid #FECACA;
+      color: var(--error);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      margin-bottom: 18px;
+      display: none;
+    }
+    .error-msg.visible { display: block; }
+
+    /* Progress bar */
+    .progress-wrap {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 40px;
+      text-align: center;
+    }
+    .progress-wrap.visible { display: flex; }
+
+    .spinner {
+      width: 52px; height: 52px;
+      border: 4px solid #E2E8F0;
+      border-top-color: var(--green);
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+      margin-bottom: 24px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .progress-label {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .progress-sub { font-size: 13px; color: var(--muted); }
+
+    /* Success */
+    .success-wrap {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 40px;
+      text-align: center;
+    }
+    .success-wrap.visible { display: flex; }
+    .check-circle {
+      width: 64px; height: 64px;
+      background: var(--light);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+    .check-circle svg { width: 36px; height: 36px; color: var(--green2); }
+    .success-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 24px;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .success-sub { font-size: 13px; color: var(--muted); max-width: 320px; }
+    .facility-badge {
+      margin-top: 16px;
+      background: var(--light);
+      border: 1px solid #BBF7D0;
+      color: var(--green2);
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+<div class="card">
+  <div class="header">
+    <div class="logo">
+      <div class="logo-icon">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+        </svg>
+      </div>
+      <span class="logo-name">Afya<span>Core</span> HMS</span>
+    </div>
+    <h1>First-Time Setup</h1>
+    <p>This runs once. Your data is saved permanently on this computer.</p>
+  </div>
+
+  <div class="steps">
+    <div class="step active" id="step-1">① License</div>
+    <div class="step" id="step-2">② Admin Account</div>
+    <div class="step" id="step-3">③ Done</div>
+  </div>
+
+  <!-- Section 1: License -->
+  <div class="body">
+    <div class="section visible" id="sec-1">
+      <div class="section-title">License Activation</div>
+      <div class="section-sub">Enter your facility name and the license key from AP Tech Kenya.</div>
+      <div class="error-msg" id="err-1"></div>
+      <div class="field">
+        <label>Facility / Hospital Name</label>
+        <input id="facilityName" type="text" placeholder="e.g. Nairobi Community Hospital" />
+      </div>
+      <div class="field">
+        <label>License Key</label>
+        <input id="licenseKey" type="text" placeholder="AFYA-XXXXXXXXXXXXXXXX-..." style="font-family: monospace; font-size: 13px;" />
+        <div class="hint">Provided by AP Tech Kenya when you purchased the system.</div>
+      </div>
+      <div class="actions">
+        <div></div>
+        <button class="btn btn-primary" onclick="goToStep2()">Continue →</button>
+      </div>
+    </div>
+
+    <!-- Section 2: Admin -->
+    <div class="section" id="sec-2">
+      <div class="section-title">Create Admin Account</div>
+      <div class="section-sub">This account has full access to all modules.</div>
+      <div class="error-msg" id="err-2"></div>
+      <div class="field">
+        <label>Full Name</label>
+        <input id="adminName" type="text" placeholder="e.g. Dr. Wanjiku Kamau" />
+      </div>
+      <div class="field">
+        <label>Email Address</label>
+        <input id="adminEmail" type="email" placeholder="admin@hospital.co.ke" />
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input id="adminPassword" type="password" placeholder="Min. 8 characters" />
+        <div class="hint">Choose a strong password. You can add more accounts once logged in.</div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-ghost" onclick="goBack()">← Back</button>
+        <button class="btn btn-primary" id="btn-install" onclick="runInstall()">Install AfyaCore →</button>
+      </div>
+    </div>
+
+    <!-- Progress -->
+    <div class="progress-wrap" id="sec-progress">
+      <div class="spinner"></div>
+      <div class="progress-label" id="progress-label">Setting up your system...</div>
+      <div class="progress-sub">Please wait. This only happens once.</div>
+    </div>
+
+    <!-- Success -->
+    <div class="success-wrap" id="sec-success">
+      <div class="check-circle">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+        </svg>
+      </div>
+      <div class="success-title">You're all set!</div>
+      <div class="success-sub">AfyaCore HMS is installed and ready. The application will open now.</div>
+      <div class="facility-badge" id="success-facility"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const { ipcRenderer } = require('electron');
+
+  function showError(id, msg) {
+    const el = document.getElementById(id);
+    el.textContent = msg;
+    el.classList.add('visible');
+  }
+  function clearError(id) {
+    document.getElementById(id).classList.remove('visible');
+  }
+
+  function goToStep2() {
+    clearError('err-1');
+    const name = document.getElementById('facilityName').value.trim();
+    const key  = document.getElementById('licenseKey').value.trim();
+    if (!name) return showError('err-1', 'Please enter the facility name.');
+    if (!key || !key.toUpperCase().startsWith('AFYA'))
+      return showError('err-1', 'Please enter a valid license key (starts with AFYA-).');
+
+    document.getElementById('sec-1').classList.remove('visible');
+    document.getElementById('sec-2').classList.add('visible');
+    document.getElementById('step-1').classList.remove('active');
+    document.getElementById('step-1').classList.add('done');
+    document.getElementById('step-2').classList.add('active');
+  }
+
+  function goBack() {
+    document.getElementById('sec-2').classList.remove('visible');
+    document.getElementById('sec-1').classList.add('visible');
+    document.getElementById('step-2').classList.remove('active');
+    document.getElementById('step-1').classList.remove('done');
+    document.getElementById('step-1').classList.add('active');
+  }
+
+  function runInstall() {
+    clearError('err-2');
+    const adminName     = document.getElementById('adminName').value.trim();
+    const adminEmail    = document.getElementById('adminEmail').value.trim();
+    const adminPassword = document.getElementById('adminPassword').value;
+
+    if (!adminName)              return showError('err-2', 'Please enter the admin full name.');
+    if (!adminEmail)             return showError('err-2', 'Please enter an email address.');
+    if (adminPassword.length < 8) return showError('err-2', 'Password must be at least 8 characters.');
+
+    // Show progress
+    document.getElementById('sec-2').classList.remove('visible');
+    document.getElementById('sec-progress').classList.add('visible');
+    document.getElementById('step-2').classList.remove('active');
+    document.getElementById('step-2').classList.add('done');
+    document.getElementById('step-3').classList.add('active');
+
+    ipcRenderer.send('run-setup', {
+      facilityName: document.getElementById('facilityName').value.trim(),
+      licenseKey:   document.getElementById('licenseKey').value.trim(),
+      adminName, adminEmail, adminPassword,
+    });
+  }
+
+  ipcRenderer.on('setup-progress', (_, msg) => {
+    document.getElementById('progress-label').textContent = msg;
+  });
+
+  ipcRenderer.on('setup-done', (_, result) => {
+    document.getElementById('sec-progress').classList.remove('visible');
+    document.getElementById('sec-success').classList.add('visible');
+    document.getElementById('success-facility').textContent = result.facilityName;
+  });
+
+  ipcRenderer.on('setup-error', (_, msg) => {
+    document.getElementById('sec-progress').classList.remove('visible');
+    document.getElementById('sec-2').classList.add('visible');
+    document.getElementById('step-3').classList.remove('active');
+    document.getElementById('step-2').classList.remove('done');
+    document.getElementById('step-2').classList.add('active');
+    showError('err-2', msg);
+  });
+</script>
+</body>
+</html>

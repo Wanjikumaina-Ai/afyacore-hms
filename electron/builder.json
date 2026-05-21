@@ -1,0 +1,71 @@
+{
+  "appId": "com.afyacore.hms",
+  "productName": "AfyaCore HMS",
+  "copyright": "Copyright © 2026 AfyaCore",
+  "directories": {
+    "buildResources": "electron/assets",
+    "output": "dist-electron"
+  },
+  "files": [
+    "build/**/*",
+    "electron/**/*",
+    "src/app/api/**/*",
+    "src/__create/**/*",
+    "data/**/*",
+    "package.json",
+    "node_modules/**/*",
+    "!node_modules/.cache/**/*",
+    "!node_modules/.vite/**/*",
+    "!node_modules/**/*.map",
+    "!node_modules/**/test/**/*",
+    "!node_modules/**/tests/**/*",
+    "!node_modules/**/__tests__/**/*",
+    "!node_modules/**/docs/**/*",
+    "!node_modules/**/example/**/*",
+    "!node_modules/**/examples/**/*",
+    "!node_modules/**/*.md",
+    "!node_modules/**/*.ts",
+    "!**/node_modules/*/{CHANGELOG.md,README.md,readme.md}",
+    "!node_modules/electron/**/*",
+    "!node_modules/electron-builder/**/*",
+    "!node_modules/vite/**/*",
+    "!node_modules/@vitejs/**/*",
+    "!node_modules/typescript/**/*",
+    "!node_modules/vitest/**/*"
+  ],
+  "npmRebuild": false,
+  "nodeGypRebuild": false,
+  "buildDependenciesFromSource": false,
+  "asar": false,
+  "win": {
+    "target": [
+      { "target": "nsis", "arch": ["x64"] }
+    ],
+    "icon": "electron/icon.ico",
+    "requestedExecutionLevel": "asInvoker"
+  },
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true,
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true,
+    "shortcutName": "AfyaCore HMS",
+    "installerIcon": "electron/icon.ico",
+    "uninstallerIcon": "electron/icon.ico",
+    "installerHeaderIcon": "electron/icon.ico",
+    "deleteAppDataOnUninstall": false
+  },
+  "mac": {
+    "target": [
+      { "target": "dmg", "arch": ["x64", "arm64"] }
+    ],
+    "icon": "electron/icon.icns",
+    "category": "public.app-category.medical",
+    "darkModeSupport": true
+  },
+  "linux": {
+    "target": ["AppImage"],
+    "icon": "electron/icon.png",
+    "category": "MedicalSoftware"
+  }
+}
