@@ -1,0 +1,65 @@
+{
+  "appId": "io.compuera.afyacore.server",
+  "productName": "AfyaCore HMS Server",
+  "copyright": "Copyright © 2024 Compuera Solutions",
+  "artifactName": "AfyaCore-Server-Setup-${version}.exe",
+
+  "directories": {
+    "output": "release/server",
+    "buildResources": "build/server"
+  },
+
+  "files": [
+    "dist/**/*",
+    "electron/server/**/*",
+    "electron/shared/**/*",
+    "src/lib/**/*",
+    "src/server/**/*",
+    "node_modules/**/*",
+    "!node_modules/.cache/**/*",
+    "!node_modules/.vite/**/*"
+  ],
+
+  "extraResources": [
+    {
+      "from": "node_modules/sql.js/dist/sql-wasm.wasm",
+      "to": "sql-wasm/sql-wasm.wasm"
+    },
+    {
+      "from": "build/server/",
+      "to": ".",
+      "filter": ["icon.ico", "tray.ico"]
+    }
+  ],
+
+  "win": {
+    "target": [
+      { "target": "nsis", "arch": ["x64"] }
+    ],
+    "icon": "build/server/icon.ico",
+    "requestedExecutionLevel": "requireAdministrator",
+    "publisherName": "Compuera Solutions"
+  },
+
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true,
+    "allowElevation": true,
+    "createDesktopShortcut": false,
+    "createStartMenuShortcut": true,
+    "shortcutName": "AfyaCore HMS Server",
+    "installerIcon": "build/server/icon.ico",
+    "uninstallerIcon": "build/server/icon.ico",
+    "installerHeaderIcon": "build/server/icon.ico",
+    "perMachine": true,
+    "installerSidebar": "build/server/installer-sidebar.bmp",
+    "include": "build/server/installer.nsh",
+    "license": "build/LICENSE.txt",
+
+    "menuCategory": "AfyaCore HMS",
+    "displayLanguageSelector": false
+  },
+
+  "compression": "maximum",
+  "publish": null
+}

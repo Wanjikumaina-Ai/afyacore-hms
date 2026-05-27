@@ -1,0 +1,51 @@
+{
+  "appId": "io.compuera.afyacore.client",
+  "productName": "AfyaCore HMS",
+  "copyright": "Copyright © 2024 Compuera Solutions",
+  "artifactName": "AfyaCore-Client-Setup-${version}.exe",
+
+  "directories": {
+    "output": "release/client",
+    "buildResources": "build/client"
+  },
+
+  "files": [
+    "dist-client/**/*",
+    "electron/client/**/*",
+    "electron/shared/**/*",
+    "node_modules/electron/**/*",
+    "!node_modules/.cache/**/*"
+  ],
+
+  "extraResources": [
+    {
+      "from": "build/client/",
+      "to": ".",
+      "filter": ["icon.ico"]
+    }
+  ],
+
+  "win": {
+    "target": [
+      { "target": "nsis", "arch": ["x64"] }
+    ],
+    "icon": "build/client/icon.ico",
+    "requestedExecutionLevel": "asInvoker",
+    "publisherName": "Compuera Solutions"
+  },
+
+  "nsis": {
+    "oneClick": true,
+    "allowToChangeInstallationDirectory": false,
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true,
+    "shortcutName": "AfyaCore HMS",
+    "installerIcon": "build/client/icon.ico",
+    "uninstallerIcon": "build/client/icon.ico",
+    "perMachine": false,
+    "license": "build/LICENSE.txt"
+  },
+
+  "compression": "maximum",
+  "publish": null
+}
