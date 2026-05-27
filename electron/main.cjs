@@ -1,240 +1,275 @@
-/**
- * FILE: electron/main.cjs
- */
+const { app, BrowserWindow, ipcMain, dialog, shell, Menu, Tray, nativeImage } = require('electron');
+const path = require('node:path');
+const { serve } = require('@hono/node-server');
 
-'use strict';
+let mainWindow = null;
+let tray = null;
+let localServer = null;
 
-const { app, BrowserWindow, shell, ipcMain, dialog } = require('electron');
-const { spawn }   = require('child_process');
-const path        = require('path');
-const fs          = require('fs');
+// ─── App config ───────────────────────────────────────────────────────────────
+const APP_PORT = 8080;
+const WS_PORT = 8081;
+const IS_DEV = process.env.NODE_ENV === 'development';
+const VITE_DEV_URL = 'http://localhost:5173';
 
-let dynamicPort   = null;
-let splashWindow  = null;
-let mainWindow    = null;
-let serverProcess = null;
+// Prevent multiple instances
+const gotLock = app.requestSingleInstanceLock();
+if (!gotLock) {
+  app.quit();
+  process.exit(0);
+}
 
-function appRoot() {
-  if (app.isPackaged) {
-    return path.join(process.resourcesPath, 'app');
+app.on('second-instance', () => {
+  if (mainWindow) {
+    if (mainWindow.isMinimized()) mainWindow.restore();
+    mainWindow.focus();
   }
-  return path.join(__dirname, '..');
-}
+});
 
-function findNodeBin() {
-  const bundled = path.join(process.resourcesPath, 'node', 'node.exe');
-  if (fs.existsSync(bundled)) return bundled;
-  return process.platform === 'win32' ? 'node.exe' : 'node';
-}
-
-function getFreePort() {
-  return new Promise((resolve, reject) => {
-    const net    = require('net');
-    const server = net.createServer();
-    server.listen(0, '127.0.0.1', () => {
-      const { port } = server.address();
-      server.close(() => resolve(port));
-    });
-    server.on('error', reject);
-  });
-}
-
-/**
- * Start the Hono server and resolve the moment it prints
- * "Server started on port XXXX" — no HTTP polling at all.
- */
-function startServer() {
-  return new Promise(async (resolve, reject) => {
-    // DEV: Vite is already running in terminal 1
-    if (!app.isPackaged) {
-      dynamicPort = 4000;
-      resolve();
-      return;
-    }
-
-    dynamicPort = await getFreePort();
-
-    const root        = appRoot();
-    const serverEntry = path.join(root, 'build', 'server', 'index.js');
-    const nodeBin     = findNodeBin();
-
-    console.log('[main] appRoot:', root);
-    console.log('[main] serverEntry:', serverEntry);
-    console.log('[main] port assigned:', dynamicPort);
-    console.log('[main] nodeBin:', nodeBin);
-
-    const child = spawn(nodeBin, [serverEntry], {
-      cwd: root,
-      env: {
-        ...process.env,
-        NODE_ENV: 'production',
-        PORT:     String(dynamicPort),
-        APP_ROOT: root,
-      },
-      stdio: 'pipe',
-    });
-
-    const timeout = setTimeout(() => {
-      reject(new Error(`Server did not start within 30s on port ${dynamicPort}`));
-    }, 30000);
-
-    // Resolve the MOMENT the server says it's ready — no polling
-    child.stdout?.on('data', (d) => {
-      const msg = d.toString();
-      console.log('[server]', msg.trim());
-
-      // Your Hono server prints this exact line when ready:
-      // "🚀 Server started on port XXXX"
-      if (msg.includes('Server started on port') || msg.includes('server started on port')) {
-        clearTimeout(timeout);
-        resolve();
-      }
-    });
-
-    child.stderr?.on('data', (d) => {
-      const msg = d.toString().trim();
-      if (msg) console.error('[server stderr]', msg);
-    });
-
-    child.on('error', (err) => {
-      clearTimeout(timeout);
-      console.error('[server] failed to start:', err.message);
-      reject(err);
-    });
-
-    child.on('exit', (code) => {
-      if (code !== 0 && code !== null) {
-        clearTimeout(timeout);
-        console.error(`[server] exited with code ${code}`);
-        reject(new Error(`Server process exited with code ${code}`));
-      }
-    });
-
-    serverProcess = child;
-  });
-}
-
-function createMainWindow() {
-  const iconPath   = path.join(__dirname, 'icon.png');
-  const iconExists = fs.existsSync(iconPath);
-
+// ─── Create window ────────────────────────────────────────────────────────────
+async function createWindow() {
   mainWindow = new BrowserWindow({
-    width:    1280,
-    height:   800,
-    show:     false,
-    title:    'AfyaCore HMS',
-    ...(iconExists ? { icon: iconPath } : {}),
+    width: 1440,
+    height: 900,
+    minWidth: 1024,
+    minHeight: 680,
+    title: 'AfyaCore HMS',
+    icon: path.join(__dirname, '../public/icon.png'),
     webPreferences: {
-      nodeIntegration:  false,
+      preload: path.join(__dirname, 'preload.cjs'),
       contextIsolation: true,
-      webSecurity:      true,
+      nodeIntegration: false,
+      webSecurity: true,
+      sandbox: false,
     },
+    titleBarStyle: 'hiddenInset',
+    backgroundColor: '#0f172a',
+    show: false, // Show after ready-to-show
   });
 
+  // Security headers
+  mainWindow.webContents.session.webRequest.onHeadersReceived((details, callback) => {
+    callback({
+      responseHeaders: {
+        ...details.responseHeaders,
+        'Content-Security-Policy': [
+          "default-src 'self'; " +
+          "script-src 'self' 'unsafe-inline' 'unsafe-eval'; " +
+          "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
+          "font-src 'self' https://fonts.gstatic.com; " +
+          "connect-src 'self' ws://localhost:8081 http://localhost:8080; " +
+          "img-src 'self' data: blob:;"
+        ],
+      },
+    });
+  });
+
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show();
+    if (IS_DEV) mainWindow.webContents.openDevTools();
+  });
+
+  mainWindow.on('closed', () => { mainWindow = null; });
+
+  // Handle external links
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
-    if (url.startsWith(`http://localhost:${dynamicPort}`) || url.startsWith('http://localhost')) {
-      return { action: 'allow' };
-    }
     shell.openExternal(url);
     return { action: 'deny' };
   });
 
-  mainWindow.on('closed', () => { mainWindow = null; });
-  return mainWindow;
-}
-
-function createSplash() {
-  splashWindow = new BrowserWindow({
-    width:          480,
-    height:         320,
-    frame:          false,
-    transparent:    true,
-    resizable:      false,
-    alwaysOnTop:    false,
-    skipTaskbar:    true,
-    parent:         mainWindow,   // bound to app window only
-    webPreferences: {
-      nodeIntegration:  false,
-      contextIsolation: true,
-    },
-  });
-
-  splashWindow.loadFile(path.join(__dirname, 'splash.html'));
-  splashWindow.center();
-  splashWindow.on('closed', () => { splashWindow = null; });
-}
-
-function setSplashStatus(text, colour = '#94a3b8') {
-  if (!splashWindow || splashWindow.isDestroyed()) return;
-  splashWindow.webContents
-    .executeJavaScript(
-      `(function(){
-        var el = document.getElementById('status');
-        if(el){ el.textContent=${JSON.stringify(text)}; el.style.color=${JSON.stringify(colour)}; }
-      })()`
-    )
-    .catch(() => {});
-}
-
-function showMainWindow() {
-  if (!mainWindow || mainWindow.isDestroyed()) return;
-  if (splashWindow && !splashWindow.isDestroyed()) splashWindow.close();
-  mainWindow.show();
-  mainWindow.maximize();
-  mainWindow.focus();
-}
-
-// ─── IPC: hot update — renderer reload only, no restart ──────────────────────
-ipcMain.on('apply-update', (_event, version) => {
-  console.log('[updater] applying update v' + version + ' — reloading renderer');
-  if (mainWindow && !mainWindow.isDestroyed()) {
-    mainWindow.webContents.reload();
+  // Load app
+  if (IS_DEV) {
+    await mainWindow.loadURL(VITE_DEV_URL);
+  } else {
+    await mainWindow.loadFile(path.join(__dirname, '../dist/index.html'));
   }
-});
+}
 
-// ─── Boot ─────────────────────────────────────────────────────────────────────
-app.whenReady().then(async () => {
-  // 1. Main window first (hidden) — splash needs it as parent
-  createMainWindow();
-
-  // 2. Splash parented to mainWindow — stays on app window only
-  createSplash();
-  setSplashStatus('Starting…');
-
+// ─── Local API server ─────────────────────────────────────────────────────────
+async function startLocalServer() {
   try {
-    // 3. Start server — resolves instantly when server signals ready
-    await startServer();
+    // Dynamic import for ESM Hono module
+    const { apiRouter } = await import('../src/server/routes/api.js');
+    const { db } = await import('../src/lib/db/database.js');
+    const { wsServer } = await import('../src/server/websocket/ws-server.js');
+    const { licenseService } = await import('../src/lib/license/license-service.js');
 
-    // 4. Load app
-    setSplashStatus('Loading…');
-    mainWindow.loadURL(`http://localhost:${dynamicPort}`);
+    // Initialize DB
+    await db.initialize();
 
-    // 5. Show the moment first paint is done
-    mainWindow.once('ready-to-show', () => {
-      showMainWindow();
+    // Validate license at startup
+    const licStatus = licenseService.validateLicense();
+    if (!licStatus.valid) {
+      console.warn('[AfyaCore] License invalid or not activated:', licStatus.error);
+    }
+
+    // Start WS server
+    wsServer.init(WS_PORT);
+
+    // Start HTTP server
+    localServer = serve({ fetch: apiRouter.fetch, port: APP_PORT }, () => {
+      console.log(`[AfyaCore] Local API server running on http://localhost:${APP_PORT}`);
     });
 
+    // Graceful shutdown
+    process.on('SIGTERM', shutdown);
+    process.on('SIGINT', shutdown);
+
   } catch (err) {
-    console.error('Startup failed:', err.message);
-    setSplashStatus('Failed to start — please restart.', '#f87171');
-    dialog.showErrorBox(
-      'AfyaCore – Startup Error',
-      `The application could not be started.\n\n${err.message}\n\nPlease restart.`
-    );
+    console.error('[AfyaCore] Failed to start local server:', err);
+    dialog.showErrorBox('Startup Error', `AfyaCore failed to start: ${err.message}`);
+    app.quit();
   }
+}
+
+function shutdown() {
+  console.log('[AfyaCore] Shutting down...');
+  try {
+    const { db } = require('../src/lib/db/database.js');
+    db.flush();
+    db.close();
+  } catch { /* ignore */ }
+  localServer?.close();
+  app.quit();
+}
+
+// ─── Tray ─────────────────────────────────────────────────────────────────────
+function createTray() {
+  const iconPath = path.join(__dirname, '../public/tray-icon.png');
+  const icon = nativeImage.createFromPath(iconPath);
+  tray = new Tray(icon.resize({ width: 16, height: 16 }));
+
+  const contextMenu = Menu.buildFromTemplate([
+    { label: 'AfyaCore HMS', enabled: false },
+    { type: 'separator' },
+    { label: 'Open', click: () => { mainWindow?.show(); mainWindow?.focus(); } },
+    { label: 'Minimize to Tray', click: () => mainWindow?.hide() },
+    { type: 'separator' },
+    { label: 'Quit AfyaCore', click: () => { app.isQuitting = true; app.quit(); } },
+  ]);
+
+  tray.setContextMenu(contextMenu);
+  tray.setToolTip('AfyaCore HMS');
+  tray.on('double-click', () => { mainWindow?.show(); mainWindow?.focus(); });
+}
+
+// ─── IPC Handlers ─────────────────────────────────────────────────────────────
+function setupIpcHandlers() {
+  // File dialogs
+  ipcMain.handle('dialog:openFile', async (_, filters) => {
+    const result = await dialog.showOpenDialog(mainWindow, {
+      properties: ['openFile'],
+      filters: filters ?? [{ name: 'All Files', extensions: ['*'] }],
+    });
+    return result.canceled ? null : result.filePaths[0];
+  });
+
+  ipcMain.handle('dialog:saveFile', async (_, { defaultName, filters }) => {
+    const result = await dialog.showSaveDialog(mainWindow, {
+      defaultPath: defaultName,
+      filters: filters ?? [{ name: 'All Files', extensions: ['*'] }],
+    });
+    return result.canceled ? null : result.filePath;
+  });
+
+  ipcMain.handle('dialog:selectFolder', async () => {
+    const result = await dialog.showOpenDialog(mainWindow, {
+      properties: ['openDirectory'],
+    });
+    return result.canceled ? null : result.filePaths[0];
+  });
+
+  // App info
+  ipcMain.handle('app:getVersion', () => app.getVersion());
+  ipcMain.handle('app:getUserDataPath', () => app.getPath('userData'));
+  ipcMain.handle('app:getPlatform', () => process.platform);
+
+  // Window controls
+  ipcMain.handle('window:minimize', () => mainWindow?.minimize());
+  ipcMain.handle('window:maximize', () => {
+    if (mainWindow?.isMaximized()) mainWindow.unmaximize();
+    else mainWindow?.maximize();
+  });
+  ipcMain.handle('window:close', () => mainWindow?.close());
+
+  // Backup via dialog
+  ipcMain.handle('backup:create', async () => {
+    const folderPath = await dialog.showOpenDialog(mainWindow, {
+      properties: ['openDirectory'],
+      title: 'Select backup location',
+    });
+    if (folderPath.canceled) return { success: false, error: 'Cancelled' };
+    try {
+      const { db } = require('../src/lib/db/database.js');
+      db.backup(folderPath.filePaths[0]);
+      return { success: true, path: folderPath.filePaths[0] };
+    } catch (err) {
+      return { success: false, error: err.message };
+    }
+  });
+
+  ipcMain.handle('backup:restore', async () => {
+    const filePath = await dialog.showOpenDialog(mainWindow, {
+      properties: ['openFile'],
+      title: 'Select backup file',
+      filters: [{ name: 'AfyaCore DB', extensions: ['db'] }],
+    });
+    if (filePath.canceled) return { success: false, error: 'Cancelled' };
+    const confirm = await dialog.showMessageBox(mainWindow, {
+      type: 'warning',
+      title: 'Confirm Restore',
+      message: 'Restoring will overwrite all current data. This cannot be undone. Continue?',
+      buttons: ['Cancel', 'Restore'],
+      defaultId: 0,
+    });
+    if (confirm.response === 0) return { success: false, error: 'Cancelled' };
+    try {
+      const { db } = require('../src/lib/db/database.js');
+      db.restore(filePath.filePaths[0]);
+      mainWindow?.webContents.reload();
+      return { success: true };
+    } catch (err) {
+      return { success: false, error: err.message };
+    }
+  });
+
+  // Print
+  ipcMain.handle('print:page', async (_, options) => {
+    const win = mainWindow;
+    return new Promise((resolve) => {
+      win?.webContents.print(
+        { silent: false, printBackground: true, ...options },
+        (success, errorType) => resolve({ success, errorType }),
+      );
+    });
+  });
+
+  // Hardware fingerprint (for licensing)
+  ipcMain.handle('license:getFingerprint', async () => {
+    const { licenseService } = require('../src/lib/license/license-service.js');
+    return licenseService.getHardwareFingerprint();
+  });
+}
+
+// ─── App events ───────────────────────────────────────────────────────────────
+app.whenReady().then(async () => {
+  await startLocalServer();
+  setupIpcHandlers();
+  createTray();
+  await createWindow();
+
+  app.on('activate', async () => {
+    if (BrowserWindow.getAllWindows().length === 0) await createWindow();
+  });
 });
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit();
-});
-
-app.on('activate', () => {
-  if (BrowserWindow.getAllWindows().length === 0) createMainWindow();
+  // On macOS keep running in tray; on Windows/Linux quit
+  if (process.platform !== 'darwin') {
+    shutdown();
+  }
 });
 
 app.on('before-quit', () => {
-  if (serverProcess) {
-    serverProcess.kill();
-    serverProcess = null;
-  }
+  app.isQuitting = true;
 });
