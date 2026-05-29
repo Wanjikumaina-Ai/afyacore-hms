@@ -1,4 +1,4 @@
-import { db } from '../lib/db/database';
+import { db } from '../db/database';
 
 // ─── All permissions in the system ────────────────────────────────────────────
 const ALL_PERMISSIONS = [
@@ -432,7 +432,7 @@ export async function createDefaultSuperAdmin(): Promise<void> {
   const exists = db.exists('users', `role_id = 'role-superadmin' AND is_active = 1`);
   if (exists) return;
 
-  const { authService } = await import('../lib/auth/auth-service');
+  const { authService } = await import('../auth/auth-service');
   const result = await authService.createUser({
     username: 'admin',
     email: 'admin@afyacore.local',

@@ -1,8 +1,8 @@
 import { Hono } from 'hono';
-import { db, generateId, generateSequentialNumber } from '../lib/db/database';
-import { authService } from '../lib/auth/auth-service';
-import { auditLogger, computeDiff } from '../lib/audit/audit-logger';
-import { licenseService } from '../lib/license/license-service';
+import { db, generateId, generateSequentialNumber } from '../../lib/db/database';
+import { authService } from '../../lib/auth/auth-service';
+import { auditLogger, computeDiff } from '../../lib/audit/audit-logger';
+import { licenseService } from '../../lib/license/license-service';
 
 // ─── Auth Middleware ──────────────────────────────────────────────────────────
 function requireAuth(c: any, next: any) {

@@ -1,9 +1,8 @@
-﻿export default function Page() {
+export default function PayrollPage() {
   return (
-    <div style={{ padding: 40, textAlign: 'center', color: '#94a3b8' }}>
-      <div style={{ fontSize: 48, marginBottom: 16 }}>🚧</div>
-      <h2 style={{ color: '#f8fafc', marginBottom: 8 }}>payroll Module</h2>
-      <p>Coming soon</p>
+    <div style={{ padding: 48, textAlign: "center" }}>
+      <h2 style={{ color: "#f8fafc", fontSize: 22, fontWeight: 800 }}>Payroll</h2>
+      <p style={{ color: "#64748b", marginTop: 8 }}>Module loading...</p>
     </div>
   );
 }

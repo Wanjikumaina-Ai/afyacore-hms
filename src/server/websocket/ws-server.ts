@@ -1,5 +1,5 @@
 import { WebSocketServer, WebSocket } from 'ws';
-import { authService } from '../lib/auth/auth-service';
+import { authService } from '../../lib/auth/auth-service';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 export interface WSMessage {

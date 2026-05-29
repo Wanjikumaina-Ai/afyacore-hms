@@ -5,18 +5,18 @@ import { resolve } from "node:path";
 export default defineConfig({
   plugins: [react()],
   base: "./",
-  root: "src/app",
+  root: resolve(__dirname, "src/app"),
   build: {
-    outDir: "../../dist",
+    outDir: resolve(__dirname, "dist"),
     emptyOutDir: true,
     rollupOptions: {
-      input: resolve(process.cwd(), "src/app/index.html"),
+      input: resolve(__dirname, "src/app/index.html"),
     },
-    chunkSizeWarningLimit: 2000,
+    chunkSizeWarningLimit: 3000,
   },
   resolve: {
     alias: {
-      "@": resolve(process.cwd(), "src"),
+      "@": resolve(__dirname, "src"),
     },
   },
   server: {
@@ -25,6 +25,7 @@ export default defineConfig({
       "/api": {
         target: "http://localhost:8080",
         changeOrigin: true,
+        secure: false,
       },
     },
   },

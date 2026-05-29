@@ -1,64 +1,77 @@
 "use strict";
-// AfyaCore HMS - SERVER MAIN PROCESS
+// ============================================================
+// AfyaCore HMS - SERVER MAIN PROCESS (PRODUCTION GRADE)
+// Imports from pre-bundled dist-server/ directory
+// No dynamic TypeScript loading - works permanently
+// ============================================================
+
 const { app, BrowserWindow, ipcMain, dialog, Tray, Menu, nativeImage, shell } = require("electron");
-const path   = require("node:path");
-const fs     = require("node:fs");
-const os     = require("node:os");
-const http   = require("node:http");
+const path    = require("node:path");
+const fs      = require("node:fs");
+const os      = require("node:os");
 const { execSync } = require("node:child_process");
+const { pathToFileURL } = require("node:url");
 
-const IS_DEV     = process.env.NODE_ENV === "development";
-const APP_PORT   = 8080;
-const WS_PORT    = 8081;
-const APP_NAME   = "AfyaCore HMS Server";
-const SERVICE_ID = "AfyaCoreHMSServer";
+// ── Constants ─────────────────────────────────────────────────
+const IS_DEV   = process.env.NODE_ENV === "development";
+const APP_PORT = 8080;
+const WS_PORT  = 8081;
+const APP_NAME = "AfyaCore HMS Server";
+const ROOT     = path.resolve(__dirname, "../..");
 
-let userDataPath;
-try { userDataPath = app.getPath("userData"); } catch { userDataPath = path.join(process.cwd(), ".afyadata"); }
+// Data paths
+const DATA_DIR    = path.join(app.getPath("userData"), "data");
+const LOG_DIR     = path.join(app.getPath("userData"), "logs");
+const CONFIG_FILE = path.join(app.getPath("userData"), "server.config.json");
+const BUNDLE_DIR  = path.join(ROOT, "dist-server");
 
-const DATA_DIR    = path.join(userDataPath, "data");
-const LOG_DIR     = path.join(userDataPath, "logs");
-const CONFIG_FILE = path.join(userDataPath, "server.config.json");
-
-let mainWindow = null;
-let tray       = null;
+// ── Globals ───────────────────────────────────────────────────
+let mainWindow  = null;
+let tray        = null;
 let localServer = null;
+let services    = {};
 
-// Prevent multiple instances
+// ── Single instance lock ──────────────────────────────────────
 const gotLock = app.requestSingleInstanceLock();
 if (!gotLock) { app.quit(); process.exit(0); }
 app.on("second-instance", () => {
   if (mainWindow) { if (mainWindow.isMinimized()) mainWindow.restore(); mainWindow.focus(); }
 });
 
-// Ensure directories
-[DATA_DIR, LOG_DIR].forEach(d => { if (!fs.existsSync(d)) fs.mkdirSync(d, { recursive: true }); });
+// ── Ensure data dirs ──────────────────────────────────────────
+[DATA_DIR, LOG_DIR].forEach(d => {
+  if (!fs.existsSync(d)) fs.mkdirSync(d, { recursive: true });
+});
 
-// Logger
+// ── Logger ────────────────────────────────────────────────────
 function log(level, msg) {
-  const line = "[" + new Date().toISOString() + "] [" + level + "] " + msg + "\n";
+  const line = `[${new Date().toISOString()}] [${level}] ${msg}\n`;
   process.stdout.write(line);
-  try { fs.appendFileSync(path.join(LOG_DIR, "server-" + new Date().toISOString().slice(0,10) + ".log"), line); } catch {}
+  try {
+    fs.appendFileSync(
+      path.join(LOG_DIR, `server-${new Date().toISOString().slice(0,10)}.log`),
+      line
+    );
+  } catch {}
 }
 
-// Config
+// ── Config helpers ────────────────────────────────────────────
 function readConfig() {
-  try { if (fs.existsSync(CONFIG_FILE)) return JSON.parse(fs.readFileSync(CONFIG_FILE, "utf8")); } catch {}
+  try { if (fs.existsSync(CONFIG_FILE)) return JSON.parse(fs.readFileSync(CONFIG_FILE, "utf8")); }
+  catch {}
   return {};
 }
 function writeConfig(data) {
-  const c = readConfig();
-  fs.writeFileSync(CONFIG_FILE, JSON.stringify({ ...c, ...data }, null, 2));
+  fs.writeFileSync(CONFIG_FILE, JSON.stringify({ ...readConfig(), ...data }, null, 2));
 }
-function checkSetupComplete() {
+function isSetupComplete() {
   const c = readConfig();
   return !!(c.setupComplete && c.hospitalName && c.licenseActivated);
 }
 
-// Get local IP
+// ── Network ───────────────────────────────────────────────────
 function getLocalIP() {
-  const nets = os.networkInterfaces();
-  for (const iface of Object.values(nets)) {
+  for (const iface of Object.values(os.networkInterfaces())) {
     for (const net of (iface || [])) {
       if (net.family === "IPv4" && !net.internal) return net.address;
     }
@@ -66,59 +79,82 @@ function getLocalIP() {
   return "127.0.0.1";
 }
 
-// Dynamic import helper - works for both .ts (dev with tsx) and .js (prod)
-async function dynImport(tsPath) {
-  // In dev, tsx/esm loader handles .ts files
-  // In prod, files are compiled to .js
-  if (!IS_DEV) {
-    const jsPath = tsPath.replace(/\.ts$/, ".js");
-    return import(jsPath);
-  }
-  return import(tsPath);
+// ── Import bundled server modules ─────────────────────────────
+// All TypeScript is pre-compiled to dist-server/ by bundle-electron.mjs
+// This is the permanent solution - plain ESM imports, no TS at runtime
+async function loadServerModules() {
+  const toURL = (rel) => pathToFileURL(path.join(BUNDLE_DIR, rel)).href;
+
+  const [
+    { db }                                              = await import(toURL("lib/db/database.js")),
+    { apiRouter }                                       = await import(toURL("server/routes/api.js")),
+    { setupRouter }                                     = await import(toURL("server/routes/setup.js")),
+    { wsServer }                                        = await import(toURL("server/websocket/ws-server.js")),
+    { seedPermissions, createDefaultSuperAdmin }        = await import(toURL("lib/auth/rbac-seeder.js")),
+    { licenseService }                                  = await import(toURL("lib/license/license-service.js")),
+  ] = await Promise.all([
+    import(toURL("lib/db/database.js")),
+    import(toURL("server/routes/api.js")),
+    import(toURL("server/routes/setup.js")),
+    import(toURL("server/websocket/ws-server.js")),
+    import(toURL("lib/auth/rbac-seeder.js")),
+    import(toURL("lib/license/license-service.js")),
+  ]);
+
+  return { db, apiRouter, setupRouter, wsServer, seedPermissions, createDefaultSuperAdmin, licenseService };
 }
 
-// Start API
+// ── Start API server ──────────────────────────────────────────
 async function startApiServer() {
-  try {
-    const rootDir = process.cwd();
-    const { db }           = await dynImport(path.join(rootDir, "src/lib/db/database.ts").replace(/\\/g, "/"));
-    const { apiRouter }    = await dynImport(path.join(rootDir, "src/server/routes/api.ts").replace(/\\/g, "/"));
-    const { wsServer }     = await dynImport(path.join(rootDir, "src/server/websocket/ws-server.ts").replace(/\\/g, "/"));
-    const { serve }        = await import("@hono/node-server");
-    const { seedPermissions, createDefaultSuperAdmin } = await dynImport(path.join(rootDir, "src/lib/auth/rbac-seeder.ts").replace(/\\/g, "/"));
+  log("INFO", `Loading server modules from ${BUNDLE_DIR}`);
 
-    await db.initialize(DATA_DIR);
-    log("INFO", "Database initialized");
+  const mods = await loadServerModules();
+  services = mods;
 
-    const config = readConfig();
-    if (!config.rbacSeeded) {
-      seedPermissions();
-      await createDefaultSuperAdmin();
-      writeConfig({ rbacSeeded: true });
-      log("INFO", "RBAC seeded");
-    }
+  const { db, apiRouter, setupRouter, wsServer, seedPermissions, createDefaultSuperAdmin } = mods;
+  const { Hono }  = await import("hono");
+  const { serve } = await import("@hono/node-server");
 
-    wsServer.init(WS_PORT);
-    log("INFO", "WebSocket on port " + WS_PORT);
+  // Initialize database
+  await db.initialize(DATA_DIR);
+  log("INFO", "Database initialized at " + DATA_DIR);
 
-    localServer = serve({ fetch: apiRouter.fetch, port: APP_PORT, hostname: "0.0.0.0" }, () => {
-      log("INFO", "API server on http://0.0.0.0:" + APP_PORT);
-    });
-
-    return { db, wsServer };
-  } catch (err) {
-    log("ERROR", "Failed to start API: " + err.message + "\n" + err.stack);
-    throw err;
+  // Seed RBAC once
+  const config = readConfig();
+  if (!config.rbacSeeded) {
+    seedPermissions();
+    await createDefaultSuperAdmin();
+    writeConfig({ rbacSeeded: true });
+    log("INFO", "RBAC seeded + default admin created");
   }
+
+  // Mount routers
+  const rootApp = new Hono();
+  rootApp.route("/", setupRouter);
+  rootApp.route("/", apiRouter);
+
+  // Start WebSocket
+  wsServer.init(WS_PORT);
+  log("INFO", `WebSocket server on port ${WS_PORT}`);
+
+  // Start HTTP - bind to 0.0.0.0 so LAN clients can connect
+  localServer = serve(
+    { fetch: rootApp.fetch, port: APP_PORT, hostname: "0.0.0.0" },
+    () => log("INFO", `API server running on http://0.0.0.0:${APP_PORT}`)
+  );
+
+  log("INFO", `Server IP for staff: http://${getLocalIP()}:${APP_PORT}`);
 }
 
-// Create window
+// ── Create main window ────────────────────────────────────────
 function createWindow(hash) {
   mainWindow = new BrowserWindow({
-    width: 1400, height: 880, minWidth: 1024, minHeight: 680,
+    width: 1400, height: 880,
+    minWidth: 1024, minHeight: 680,
     title: APP_NAME,
     backgroundColor: "#0f172a",
     show: false,
+    titleBarStyle: "hiddenInset",
     webPreferences: {
       preload: path.join(__dirname, "../shared/preload.cjs"),
       contextIsolation: true,
@@ -127,62 +163,120 @@ function createWindow(hash) {
     },
   });
 
-  mainWindow.once("ready-to-show", () => {
-    mainWindow.show();
-    if (IS_DEV) mainWindow.webContents.openDevTools();
+  // Security headers
+  mainWindow.webContents.session.webRequest.onHeadersReceived((details, cb) => {
+    cb({
+      responseHeaders: {
+        ...details.responseHeaders,
+        "Content-Security-Policy": [
+          `default-src 'self' 'unsafe-inline'; connect-src 'self' ws://localhost:${WS_PORT} http://localhost:${APP_PORT} http://${getLocalIP()}:${APP_PORT};`
+        ],
+      },
+    });
   });
 
+  mainWindow.once("ready-to-show", () => {
+    mainWindow.show();
+    if (IS_DEV) mainWindow.webContents.openDevTools({ mode: "detach" });
+  });
+
+  // Hide to tray instead of closing
   mainWindow.on("close", e => {
     if (!app.isQuitting) { e.preventDefault(); mainWindow.hide(); }
   });
 
   if (IS_DEV) {
-    mainWindow.loadURL("http://localhost:5173/" + (hash || ""));
+    mainWindow.loadURL(`http://localhost:5173/${hash || ""}`);
   } else {
-    mainWindow.loadFile(path.join(process.cwd(), "dist/index.html"), { hash: hash || "" });
+    mainWindow.loadFile(path.join(ROOT, "dist/index.html"), { hash: hash || "/" });
   }
 }
 
-// Tray
+// ── System tray ───────────────────────────────────────────────
 function createTray() {
   try {
-    tray = new Tray(nativeImage.createEmpty());
-    const menu = Menu.buildFromTemplate([
+    const iconPath = path.join(ROOT, "build/server/tray.ico");
+    const icon = fs.existsSync(iconPath)
+      ? nativeImage.createFromPath(iconPath).resize({ width: 16, height: 16 })
+      : nativeImage.createEmpty();
+
+    tray = new Tray(icon);
+    const ip = getLocalIP();
+
+    tray.setContextMenu(Menu.buildFromTemplate([
       { label: APP_NAME, enabled: false },
-      { label: "Server: " + getLocalIP() + ":" + APP_PORT, enabled: false },
+      { label: `● Running  ${ip}:${APP_PORT}`, enabled: false },
       { type: "separator" },
-      { label: "Open Dashboard", click: () => { mainWindow && mainWindow.show(); } },
-      { label: "View Logs", click: () => shell.openPath(LOG_DIR) },
+      { label: "Open Dashboard",       click: () => { mainWindow?.show(); mainWindow?.focus(); } },
+      { label: "View Server Logs",     click: () => shell.openPath(LOG_DIR) },
+      { label: "Open Data Folder",     click: () => shell.openPath(DATA_DIR) },
       { type: "separator" },
-      { label: "Quit", click: () => { app.isQuitting = true; app.quit(); } },
-    ]);
-    tray.setContextMenu(menu);
-    tray.setToolTip(APP_NAME + " - " + getLocalIP());
-    tray.on("double-click", () => { mainWindow && mainWindow.show(); });
-  } catch (e) { log("WARN", "Tray creation failed: " + e.message); }
+      { label: "Register Windows Service", click: registerWindowsService },
+      { type: "separator" },
+      { label: "Quit AfyaCore Server", click: () => { app.isQuitting = true; app.quit(); } },
+    ]));
+
+    tray.setToolTip(`${APP_NAME}  ${ip}:${APP_PORT}`);
+    tray.on("double-click", () => { mainWindow?.show(); mainWindow?.focus(); });
+    log("INFO", "System tray created");
+  } catch (e) {
+    log("WARN", "Tray creation failed (non-fatal): " + e.message);
+  }
 }
 
-// IPC
+// ── Windows service ───────────────────────────────────────────
+function registerWindowsService() {
+  if (process.platform !== "win32") return;
+  try {
+    const exe = `"${process.execPath}"`;
+    execSync(`sc create "AfyaCoreHMSServer" binPath= ${exe} start= auto DisplayName= "AfyaCore HMS Server"`, { stdio: "pipe" });
+    execSync(`sc description "AfyaCoreHMSServer" "AfyaCore Hospital Management System"`, { stdio: "pipe" });
+    execSync(`sc failure "AfyaCoreHMSServer" reset= 60 actions= restart/5000/restart/10000/restart/30000`, { stdio: "pipe" });
+    execSync(`sc start "AfyaCoreHMSServer"`, { stdio: "pipe" });
+    log("INFO", "Windows service registered and started");
+    dialog.showMessageBox(mainWindow, {
+      type: "info",
+      title: "Service Registered",
+      message: "AfyaCore Server registered as a Windows service.\n\nIt will now start automatically when Windows boots.\n\nService name: AfyaCoreHMSServer",
+    });
+  } catch (err) {
+    log("ERROR", "Service registration failed: " + err.message);
+    dialog.showErrorBox("Service Registration Failed",
+      `Run PowerShell as Administrator and try again.\n\nError: ${err.message}`
+    );
+  }
+}
+
+// ── IPC handlers ─────────────────────────────────────────────
 function setupIPC() {
+  // Setup wizard
   ipcMain.handle("setup:complete", async (_, data) => {
     try {
-      writeConfig({ setupComplete: true, hospitalName: data.hospitalName, licenseKey: data.licenseKey, licenseActivated: data.licenseActivated });
+      writeConfig({
+        setupComplete: true,
+        hospitalName: data.hospitalName,
+        licenseKey: data.licenseKey,
+        licenseActivated: data.licenseActivated,
+        setupDate: new Date().toISOString(),
+      });
       setTimeout(() => {
-        if (IS_DEV) mainWindow && mainWindow.loadURL("http://localhost:5173/#/dashboard");
-        else mainWindow && mainWindow.loadFile(path.join(process.cwd(), "dist/index.html"), { hash: "/dashboard" });
-      }, 500);
+        const url = IS_DEV ? "http://localhost:5173/#/dashboard" : null;
+        if (url) mainWindow?.loadURL(url);
+        else mainWindow?.loadFile(path.join(ROOT, "dist/index.html"), { hash: "/dashboard" });
+      }, 300);
       return { success: true };
-    } catch (err) { return { success: false, error: err.message }; }
+    } catch (e) { return { success: false, error: e.message }; }
   });
 
   ipcMain.handle("server:info", () => ({
     ip: getLocalIP(), port: APP_PORT, wsPort: WS_PORT,
     dataDir: DATA_DIR, version: app.getVersion(),
-    platform: process.platform, hostname: os.hostname(), uptime: process.uptime(),
+    platform: process.platform, hostname: os.hostname(),
+    uptime: Math.floor(process.uptime()),
   }));
 
   ipcMain.handle("server:getConfig",   () => readConfig());
-  ipcMain.handle("server:isSetupDone", () => checkSetupComplete());
+  ipcMain.handle("server:isSetupDone", () => isSetupComplete());
 
   ipcMain.handle("dialog:selectFolder", async () => {
     const r = await dialog.showOpenDialog(mainWindow, { properties: ["openDirectory"] });
@@ -190,17 +284,19 @@ function setupIPC() {
   });
 
   ipcMain.handle("backup:create", async () => {
-    const r = await dialog.showOpenDialog(mainWindow, { properties: ["openDirectory"], title: "Select backup folder" });
+    const r = await dialog.showOpenDialog(mainWindow, {
+      properties: ["openDirectory"], title: "Select backup destination",
+    });
     if (r.canceled) return { success: false, error: "Cancelled" };
-    try {
-      const { db } = await dynImport(path.join(process.cwd(), "src/lib/db/database.ts").replace(/\\/g, "/"));
-      db.backup(r.filePaths[0]);
-      return { success: true, path: r.filePaths[0] };
-    } catch (err) { return { success: false, error: err.message }; }
+    try { services.db?.backup(r.filePaths[0]); return { success: true, path: r.filePaths[0] }; }
+    catch (e) { return { success: false, error: e.message }; }
   });
 
   ipcMain.handle("backup:restore", async () => {
-    const pick = await dialog.showOpenDialog(mainWindow, { properties: ["openFile"], filters: [{ name: "AfyaCore DB", extensions: ["db"] }] });
+    const pick = await dialog.showOpenDialog(mainWindow, {
+      properties: ["openFile"],
+      filters: [{ name: "AfyaCore Database", extensions: ["db"] }],
+    });
     if (pick.canceled) return { success: false, error: "Cancelled" };
     const confirm = await dialog.showMessageBox(mainWindow, {
       type: "warning", title: "Confirm Restore",
@@ -209,70 +305,69 @@ function setupIPC() {
     });
     if (confirm.response === 0) return { success: false, error: "Cancelled" };
     try {
-      const { db } = await dynImport(path.join(process.cwd(), "src/lib/db/database.ts").replace(/\\/g, "/"));
-      db.restore(pick.filePaths[0]);
-      mainWindow && mainWindow.webContents.reload();
-      return { success: true };
-    } catch (err) { return { success: false, error: err.message }; }
-  });
-
-  ipcMain.handle("service:register", () => {
-    try {
-      execSync("sc create " + SERVICE_ID + " binPath= \"" + process.execPath + " --service\" start= auto DisplayName= \"" + APP_NAME + "\"", { stdio: "pipe" });
-      execSync("sc start " + SERVICE_ID, { stdio: "pipe" });
+      services.db?.restore(pick.filePaths[0]);
+      mainWindow?.webContents.reload();
       return { success: true };
     } catch (e) { return { success: false, error: e.message }; }
   });
 
-  ipcMain.handle("app:getVersion",   () => app.getVersion());
-  ipcMain.handle("app:openLogs",     () => shell.openPath(LOG_DIR));
-  ipcMain.handle("window:minimize",  () => mainWindow && mainWindow.minimize());
-  ipcMain.handle("window:maximize",  () => mainWindow && (mainWindow.isMaximized() ? mainWindow.unmaximize() : mainWindow.maximize()));
-  ipcMain.handle("window:hide",      () => mainWindow && mainWindow.hide());
+  ipcMain.handle("service:register",   () => { registerWindowsService(); return { success: true }; });
+  ipcMain.handle("app:getVersion",     () => app.getVersion());
+  ipcMain.handle("app:openLogs",       () => shell.openPath(LOG_DIR));
+  ipcMain.handle("window:minimize",    () => mainWindow?.minimize());
+  ipcMain.handle("window:maximize",    () => mainWindow?.isMaximized() ? mainWindow.unmaximize() : mainWindow?.maximize());
+  ipcMain.handle("window:hide",        () => mainWindow?.hide());
 
-  ipcMain.handle("license:getFingerprint", async () => {
-    const { licenseService } = await dynImport(path.join(process.cwd(), "src/lib/license/license-service.ts").replace(/\\/g, "/"));
-    return licenseService.getHardwareFingerprint();
-  });
-  ipcMain.handle("license:activate", async (_, key) => {
-    const { licenseService } = await dynImport(path.join(process.cwd(), "src/lib/license/license-service.ts").replace(/\\/g, "/"));
-    return licenseService.activateLicense(key);
-  });
-  ipcMain.handle("license:status", async () => {
-    const { licenseService } = await dynImport(path.join(process.cwd(), "src/lib/license/license-service.ts").replace(/\\/g, "/"));
-    return licenseService.validateLicense();
-  });
+  ipcMain.handle("license:getFingerprint", () => services.licenseService?.getHardwareFingerprint());
+  ipcMain.handle("license:activate",  (_, key) => services.licenseService?.activateLicense(key));
+  ipcMain.handle("license:status",    () => services.licenseService?.validateLicense());
 }
 
-// Lifecycle
+// ── App lifecycle ─────────────────────────────────────────────
 app.whenReady().then(async () => {
-  log("INFO", "Starting " + APP_NAME);
+  log("INFO", `Starting ${APP_NAME} v${app.getVersion()}`);
+  log("INFO", `Bundle dir: ${BUNDLE_DIR}`);
+  log("INFO", `Data dir:   ${DATA_DIR}`);
 
-  try { await startApiServer(); }
-  catch (err) {
-    dialog.showErrorBox("Startup Failed", "AfyaCore Server failed to start:\n\n" + err.message);
-    app.quit(); return;
+  // Verify bundle exists
+  if (!fs.existsSync(BUNDLE_DIR)) {
+    const msg = `Server bundle not found at:\n${BUNDLE_DIR}\n\nRun: npm run bundle\n\nThis builds the server code before Electron starts.`;
+    log("ERROR", msg);
+    dialog.showErrorBox("Bundle Missing", msg);
+    app.quit();
+    return;
+  }
+
+  try {
+    await startApiServer();
+  } catch (err) {
+    log("ERROR", "Startup failed: " + err.stack);
+    dialog.showErrorBox("Startup Failed", `AfyaCore Server failed to start:\n\n${err.message}`);
+    app.quit();
+    return;
   }
 
   setupIPC();
   createTray();
 
-  const setupDone = checkSetupComplete();
-  createWindow(setupDone ? "#/dashboard" : "#/setup");
-  log("INFO", "Server IP: " + getLocalIP() + ":" + APP_PORT);
+  const hash = isSetupComplete() ? "#/dashboard" : "#/setup";
+  createWindow(hash);
+  log("INFO", `Ready. Staff connect to: http://${getLocalIP()}:${APP_PORT}`);
 });
 
-app.on("window-all-closed", () => { /* keep alive in tray */ });
+app.on("window-all-closed", () => { /* stay alive in tray */ });
 
 app.on("before-quit", async () => {
   app.isQuitting = true;
+  log("INFO", "Shutting down...");
   try {
-    if (localServer) localServer.close();
-    const { db } = await dynImport(path.join(process.cwd(), "src/lib/db/database.ts").replace(/\\/g, "/"));
-    db.flush(); db.close();
+    localServer?.close();
+    services.wsServer?.close();
+    services.db?.flush();
+    services.db?.close();
   } catch {}
   log("INFO", "Shutdown complete");
 });
 
-process.on("uncaughtException",  e => log("ERROR", "Uncaught: " + e.message));
-process.on("unhandledRejection", r => log("ERROR", "Unhandled: " + String(r)));
+process.on("uncaughtException",  e => log("ERROR", `Uncaught: ${e.message}\n${e.stack}`));
+process.on("unhandledRejection", r => log("ERROR", `Unhandled: ${String(r)}`));
