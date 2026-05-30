@@ -8,7 +8,7 @@ import { fileURLToPath } from 'url';
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const root      = join(__dirname, '..');
 const apiDir    = join(root, 'src', 'app', 'api');
-const outFile   = join(root, 'build', 'server', 'route-manifest.json');
+const outFile   = join(root, 'build', 'client', 'route-manifest.json');
 
 function scan(dir) {
   const results = [];
