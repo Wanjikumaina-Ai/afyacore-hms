@@ -2,6 +2,13 @@ import initSqlJs, { type Database, type SqlJsStatic } from 'sql.js';
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { app } from 'electron';
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
+
+// ESM __dirname shim (not available in ES modules natively)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 const DB_VERSION = '1.0.0';

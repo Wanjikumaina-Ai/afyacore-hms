@@ -1,134 +1,136 @@
 {
-  "name": "afyacore-hms",
-  "version": "1.0.0",
-  "description": "AfyaCore Enterprise Hospital Management System",
-  "main": "electron/main.cjs",
-  "author": {
-    "name": "AfyaCore Technologies",
-    "email": "dev@afyacore.io"
-  },
-  "license": "PROPRIETARY",
-  "private": true,
-  "scripts": {
-    "dev": "concurrently \"npm run dev:vite\" \"npm run dev:electron\"",
-    "dev:vite": "vite",
-    "dev:electron": "wait-on http://localhost:5173 && cross-env NODE_ENV=development electron .",
-    "build": "npm run build:vite && npm run build:electron",
-    "build:vite": "tsc -b && vite build",
-    "build:electron": "electron-builder",
-    "build:win": "electron-builder --win",
-    "build:mac": "electron-builder --mac",
-    "build:linux": "electron-builder --linux",
-    "seed": "tsx src/lib/auth/rbac-seeder.ts",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage",
-    "lint": "eslint src --ext .ts,.tsx",
-    "type-check": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@hono/node-server": "^1.12.0",
-    "@tanstack/react-query": "^5.56.0",
-    "@tanstack/react-table": "^8.20.0",
-    "bcryptjs": "^2.4.3",
-    "hono": "^4.5.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-idle-timer": "^5.7.2",
-    "react-router": "^7.0.0",
-    "recharts": "^2.13.0",
-    "sql.js": "^1.12.0",
-    "ws": "^8.18.0",
-    "zustand": "^5.0.0"
-  },
-  "devDependencies": {
-    "@types/bcryptjs": "^2.4.6",
-    "@types/node": "^22.5.5",
-    "@types/react": "^18.3.5",
-    "@types/react-dom": "^18.3.0",
-    "@types/ws": "^8.5.12",
-    "@vitejs/plugin-react": "^4.3.1",
-    "concurrently": "^9.0.1",
-    "cross-env": "^7.0.3",
-    "electron": "^33.0.0",
-    "electron-builder": "^25.0.5",
-    "esbuild": "^0.28.0",
-    "tsx": "^4.19.1",
-    "typescript": "^5.5.4",
-    "vite": "^5.4.6",
-    "vitest": "^2.1.1",
-    "wait-on": "^8.0.1"
-  },
-  "build": {
-    "appId": "io.afyacore.hms",
-    "productName": "AfyaCore HMS",
-    "copyright": "Copyright © 2024 AfyaCore Technologies",
-    "artifactName": "${productName}-${version}-${platform}-${arch}.${ext}",
-    "directories": {
-      "output": "release",
-      "buildResources": "public"
-    },
-    "files": [
-      "dist/**/*",
-      "electron/**/*",
-      "src/lib/**/*",
-      "src/server/**/*",
-      "!src/app/**/*",
-      "node_modules/**/*",
-      "!node_modules/.cache/**/*"
-    ],
-    "extraResources": [
-      {
-        "from": "node_modules/sql.js/dist/sql-wasm.wasm",
-        "to": "sql-wasm/sql-wasm.wasm"
-      }
-    ],
-    "win": {
-      "target": [
-        {
-          "target": "nsis",
-          "arch": [
-            "x64"
-          ]
-        }
-      ],
-      "icon": "public/icon.ico",
-      "requestedExecutionLevel": "asInvoker",
-      "signingHashAlgorithms": [
-        "sha256"
-      ],
-      "verifyUpdateCodeSignature": false
-    },
-    "nsis": {
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true,
-      "allowElevation": true,
-      "createDesktopShortcut": true,
-      "createStartMenuShortcut": true,
-      "shortcutName": "AfyaCore HMS",
-      "installerIcon": "public/icon.ico",
-      "installerHeaderIcon": "public/icon.ico",
-      "include": "installer.nsh",
-      "perMachine": true
-    },
-    "mac": {
-      "target": [
-        "dmg"
-      ],
-      "icon": "public/icon.icns",
-      "category": "public.app-category.medical",
-      "hardenedRuntime": true,
-      "gatekeeperAssess": false
-    },
-    "linux": {
-      "target": [
-        "AppImage",
-        "deb"
-      ],
-      "icon": "public/icon.png",
-      "category": "MedicalSoftware"
-    },
-    "publish": null,
-    "compression": "maximum"
-  }
+    "name":  "afyacore-hms",
+    "version":  "1.0.0",
+    "description":  "AfyaCore Enterprise Hospital Management System",
+    "main":  "electron/server/main.cjs",
+    "author":  {
+                   "name":  "AfyaCore Technologies",
+                   "email":  "dev@afyacore.io"
+               },
+    "license":  "PROPRIETARY",
+    "private":  true,
+    "scripts":  {
+                    "dev":  "concurrently \"npm run dev:vite\" \"npm run dev:electron\"",
+                    "dev:vite":  "vite --config vite.config.ts --port 5173",
+                    "dev:electron":  "wait-on http://localhost:5173 \u0026\u0026 cross-env NODE_ENV=development electron electron/server/main.cjs",
+                    "build":  "npm run build:vite \u0026\u0026 npm run build:electron",
+                    "build:vite":  "tsc -b \u0026\u0026 vite build",
+                    "build:electron":  "electron-builder",
+                    "build:win":  "electron-builder --win",
+                    "build:mac":  "electron-builder --mac",
+                    "build:linux":  "electron-builder --linux",
+                    "seed":  "tsx src/lib/auth/rbac-seeder.ts",
+                    "test":  "vitest run",
+                    "test:watch":  "vitest",
+                    "test:coverage":  "vitest run --coverage",
+                    "lint":  "eslint src --ext .ts,.tsx",
+                    "type-check":  "tsc --noEmit"
+                },
+    "dependencies":  {
+                         "@hono/node-server":  "^1.12.0",
+                         "@tanstack/react-query":  "^5.56.0",
+                         "@tanstack/react-table":  "^8.20.0",
+                         "bcryptjs":  "^2.4.3",
+                         "hono":  "^4.5.0",
+                         "react":  "^18.3.1",
+                         "react-dom":  "^18.3.1",
+                         "react-idle-timer":  "^5.7.2",
+                         "react-router":  "^7.0.0",
+                         "recharts":  "^2.13.0",
+                         "sql.js":  "^1.12.0",
+                         "ws":  "^8.18.0",
+                         "zustand":  "^5.0.0"
+                     },
+    "devDependencies":  {
+                            "@tailwindcss/postcss":  "^4.3.0",
+                            "@types/bcryptjs":  "^2.4.6",
+                            "@types/node":  "^22.5.5",
+                            "@types/react":  "^18.3.5",
+                            "@types/react-dom":  "^18.3.0",
+                            "@types/ws":  "^8.5.12",
+                            "@vitejs/plugin-react":  "^4.3.1",
+                            "concurrently":  "^9.0.1",
+                            "cross-env":  "^7.0.3",
+                            "electron":  "^33.0.0",
+                            "electron-builder":  "^25.0.5",
+                            "esbuild":  "^0.28.0",
+                            "tsx":  "^4.19.1",
+                            "typescript":  "^5.5.4",
+                            "vite":  "^5.4.6",
+                            "vitest":  "^2.1.1",
+                            "wait-on":  "^8.0.1"
+                        },
+    "build":  {
+                  "appId":  "io.afyacore.hms",
+                  "productName":  "AfyaCore HMS",
+                  "copyright":  "Copyright Ã‚Â© 2024 AfyaCore Technologies",
+                  "artifactName":  "${productName}-${version}-${platform}-${arch}.${ext}",
+                  "directories":  {
+                                      "output":  "release",
+                                      "buildResources":  "public"
+                                  },
+                  "files":  [
+                                "dist/**/*",
+                                "electron/**/*",
+                                "src/lib/**/*",
+                                "src/server/**/*",
+                                "!src/app/**/*",
+                                "node_modules/**/*",
+                                "!node_modules/.cache/**/*"
+                            ],
+                  "extraResources":  [
+                                         {
+                                             "from":  "node_modules/sql.js/dist/sql-wasm.wasm",
+                                             "to":  "sql-wasm/sql-wasm.wasm"
+                                         }
+                                     ],
+                  "win":  {
+                              "target":  [
+                                             {
+                                                 "target":  "nsis",
+                                                 "arch":  [
+                                                              "x64"
+                                                          ]
+                                             }
+                                         ],
+                              "icon":  "public/icon.ico",
+                              "requestedExecutionLevel":  "asInvoker",
+                              "signingHashAlgorithms":  [
+                                                            "sha256"
+                                                        ],
+                              "verifyUpdateCodeSignature":  false
+                          },
+                  "nsis":  {
+                               "oneClick":  false,
+                               "allowToChangeInstallationDirectory":  true,
+                               "allowElevation":  true,
+                               "createDesktopShortcut":  true,
+                               "createStartMenuShortcut":  true,
+                               "shortcutName":  "AfyaCore HMS",
+                               "installerIcon":  "public/icon.ico",
+                               "installerHeaderIcon":  "public/icon.ico",
+                               "include":  "installer.nsh",
+                               "perMachine":  true
+                           },
+                  "mac":  {
+                              "target":  [
+                                             "dmg"
+                                         ],
+                              "icon":  "public/icon.icns",
+                              "category":  "public.app-category.medical",
+                              "hardenedRuntime":  true,
+                              "gatekeeperAssess":  false
+                          },
+                  "linux":  {
+                                "target":  [
+                                               "AppImage",
+                                               "deb"
+                                           ],
+                                "icon":  "public/icon.png",
+                                "category":  "MedicalSoftware"
+                            },
+                  "publish":  null,
+                  "compression":  "maximum"
+              },
+    "type":  "module"
 }

@@ -3,7 +3,7 @@ import {
   db,
   generateId,
   generateSequentialNumber
-} from "../../chunk-O5JH7GYK.js";
+} from "../../chunk-6WJBJ4G3.js";
 export {
   AfyaDatabase,
   db,

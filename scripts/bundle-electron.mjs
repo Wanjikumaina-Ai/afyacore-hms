@@ -56,3 +56,9 @@ if (existsSync(schemaSrc)) {
 }
 
 console.log("[bundle] Done - dist-server/ ready");
+
+// Copy wasm to Electron resources for dev mode
+const electronWasm = join(ROOT, 'node_modules/.pnpm/electron@33.4.11/node_modules/electron/dist/resources/sql-wasm');
+import { mkdirSync as mkd } from 'node:fs';
+mkd(electronWasm, { recursive: true });
+if (existsSync(wasmSrc)) { copyFileSync(wasmSrc, join(electronWasm, 'sql-wasm.wasm')); console.log('[bundle] Copied wasm to Electron resources'); }
