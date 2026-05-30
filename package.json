@@ -23,6 +23,7 @@
     "@dnd-kit/sortable": "^10.0.0",
     "@emotion/react": "11.11.4",
     "@emotion/styled": "11.11.0",
+    "@hono/node-server": "^2.0.4",
     "@lshay/ui": "^0.1.32",
     "@react-aria/button": "^3.13.1",
     "@react-router/fs-routes": "^7.6.0",
