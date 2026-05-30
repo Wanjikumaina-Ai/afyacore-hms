@@ -6,13 +6,11 @@ let mainWindow = null;
 let tray = null;
 let localServer = null;
 
-// ─── App config ───────────────────────────────────────────────────────────────
 const APP_PORT = 8080;
 const WS_PORT = 8081;
 const IS_DEV = process.env.NODE_ENV === 'development';
 const VITE_DEV_URL = 'http://localhost:5173';
 
-// Prevent multiple instances
 const gotLock = app.requestSingleInstanceLock();
 if (!gotLock) {
   app.quit();
@@ -26,7 +24,6 @@ app.on('second-instance', () => {
   }
 });
 
-// ─── Create window ────────────────────────────────────────────────────────────
 async function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1440,
@@ -44,10 +41,9 @@ async function createWindow() {
     },
     titleBarStyle: 'hiddenInset',
     backgroundColor: '#0f172a',
-    show: false, // Show after ready-to-show
+    show: false,
   });
 
-  // Security headers
   mainWindow.webContents.session.webRequest.onHeadersReceived((details, callback) => {
     callback({
       responseHeaders: {
@@ -71,47 +67,38 @@ async function createWindow() {
 
   mainWindow.on('closed', () => { mainWindow = null; });
 
-  // Handle external links
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
     shell.openExternal(url);
     return { action: 'deny' };
   });
 
-  // Load app
   if (IS_DEV) {
     await mainWindow.loadURL(VITE_DEV_URL);
   } else {
-    await mainWindow.loadFile(path.join(__dirname, '../dist/index.html'));
+    await mainWindow.loadFile(path.join(__dirname, '../build/client/index.html'));
   }
 }
 
-// ─── Local API server ─────────────────────────────────────────────────────────
 async function startLocalServer() {
   try {
-    // Dynamic import for ESM Hono module
-    const { apiRouter } = await import('../src/server/routes/api.js');
-    const { db } = await import('../src/lib/db/database.js');
-    const { wsServer } = await import('../src/server/websocket/ws-server.js');
-    const { licenseService } = await import('../src/lib/license/license-service.js');
+    const { apiRouter } = await import('../dist-server/server/routes/api.js');
+    const { db } = await import('../dist-server/lib/db/database.js');
+    const { wsServer } = await import('../dist-server/server/websocket/ws-server.js');
+    const { licenseService } = await import('../dist-server/lib/license/license-service.js');
 
-    // Initialize DB
     await db.initialize();
 
-    // Validate license at startup
     const licStatus = licenseService.validateLicense();
     if (!licStatus.valid) {
       console.warn('[AfyaCore] License invalid or not activated:', licStatus.error);
     }
 
-    // Start WS server
     wsServer.init(WS_PORT);
 
-    // Start HTTP server
     localServer = serve({ fetch: apiRouter.fetch, port: APP_PORT }, () => {
       console.log(`[AfyaCore] Local API server running on http://localhost:${APP_PORT}`);
     });
 
-    // Graceful shutdown
     process.on('SIGTERM', shutdown);
     process.on('SIGINT', shutdown);
 
@@ -125,7 +112,7 @@ async function startLocalServer() {
 function shutdown() {
   console.log('[AfyaCore] Shutting down...');
   try {
-    const { db } = require('../src/lib/db/database.js');
+    const { db } = require('../dist-server/lib/db/database.js');
     db.flush();
     db.close();
   } catch { /* ignore */ }
@@ -133,7 +120,6 @@ function shutdown() {
   app.quit();
 }
 
-// ─── Tray ─────────────────────────────────────────────────────────────────────
 function createTray() {
   const iconPath = path.join(__dirname, '../public/tray-icon.png');
   const icon = nativeImage.createFromPath(iconPath);
@@ -142,134 +128,4 @@ function createTray() {
   const contextMenu = Menu.buildFromTemplate([
     { label: 'AfyaCore HMS', enabled: false },
     { type: 'separator' },
-    { label: 'Open', click: () => { mainWindow?.show(); mainWindow?.focus(); } },
-    { label: 'Minimize to Tray', click: () => mainWindow?.hide() },
-    { type: 'separator' },
-    { label: 'Quit AfyaCore', click: () => { app.isQuitting = true; app.quit(); } },
-  ]);
-
-  tray.setContextMenu(contextMenu);
-  tray.setToolTip('AfyaCore HMS');
-  tray.on('double-click', () => { mainWindow?.show(); mainWindow?.focus(); });
-}
-
-// ─── IPC Handlers ─────────────────────────────────────────────────────────────
-function setupIpcHandlers() {
-  // File dialogs
-  ipcMain.handle('dialog:openFile', async (_, filters) => {
-    const result = await dialog.showOpenDialog(mainWindow, {
-      properties: ['openFile'],
-      filters: filters ?? [{ name: 'All Files', extensions: ['*'] }],
-    });
-    return result.canceled ? null : result.filePaths[0];
-  });
-
-  ipcMain.handle('dialog:saveFile', async (_, { defaultName, filters }) => {
-    const result = await dialog.showSaveDialog(mainWindow, {
-      defaultPath: defaultName,
-      filters: filters ?? [{ name: 'All Files', extensions: ['*'] }],
-    });
-    return result.canceled ? null : result.filePath;
-  });
-
-  ipcMain.handle('dialog:selectFolder', async () => {
-    const result = await dialog.showOpenDialog(mainWindow, {
-      properties: ['openDirectory'],
-    });
-    return result.canceled ? null : result.filePaths[0];
-  });
-
-  // App info
-  ipcMain.handle('app:getVersion', () => app.getVersion());
-  ipcMain.handle('app:getUserDataPath', () => app.getPath('userData'));
-  ipcMain.handle('app:getPlatform', () => process.platform);
-
-  // Window controls
-  ipcMain.handle('window:minimize', () => mainWindow?.minimize());
-  ipcMain.handle('window:maximize', () => {
-    if (mainWindow?.isMaximized()) mainWindow.unmaximize();
-    else mainWindow?.maximize();
-  });
-  ipcMain.handle('window:close', () => mainWindow?.close());
-
-  // Backup via dialog
-  ipcMain.handle('backup:create', async () => {
-    const folderPath = await dialog.showOpenDialog(mainWindow, {
-      properties: ['openDirectory'],
-      title: 'Select backup location',
-    });
-    if (folderPath.canceled) return { success: false, error: 'Cancelled' };
-    try {
-      const { db } = require('../src/lib/db/database.js');
-      db.backup(folderPath.filePaths[0]);
-      return { success: true, path: folderPath.filePaths[0] };
-    } catch (err) {
-      return { success: false, error: err.message };
-    }
-  });
-
-  ipcMain.handle('backup:restore', async () => {
-    const filePath = await dialog.showOpenDialog(mainWindow, {
-      properties: ['openFile'],
-      title: 'Select backup file',
-      filters: [{ name: 'AfyaCore DB', extensions: ['db'] }],
-    });
-    if (filePath.canceled) return { success: false, error: 'Cancelled' };
-    const confirm = await dialog.showMessageBox(mainWindow, {
-      type: 'warning',
-      title: 'Confirm Restore',
-      message: 'Restoring will overwrite all current data. This cannot be undone. Continue?',
-      buttons: ['Cancel', 'Restore'],
-      defaultId: 0,
-    });
-    if (confirm.response === 0) return { success: false, error: 'Cancelled' };
-    try {
-      const { db } = require('../src/lib/db/database.js');
-      db.restore(filePath.filePaths[0]);
-      mainWindow?.webContents.reload();
-      return { success: true };
-    } catch (err) {
-      return { success: false, error: err.message };
-    }
-  });
-
-  // Print
-  ipcMain.handle('print:page', async (_, options) => {
-    const win = mainWindow;
-    return new Promise((resolve) => {
-      win?.webContents.print(
-        { silent: false, printBackground: true, ...options },
-        (success, errorType) => resolve({ success, errorType }),
-      );
-    });
-  });
-
-  // Hardware fingerprint (for licensing)
-  ipcMain.handle('license:getFingerprint', async () => {
-    const { licenseService } = require('../src/lib/license/license-service.js');
-    return licenseService.getHardwareFingerprint();
-  });
-}
-
-// ─── App events ───────────────────────────────────────────────────────────────
-app.whenReady().then(async () => {
-  await startLocalServer();
-  setupIpcHandlers();
-  createTray();
-  await createWindow();
-
-  app.on('activate', async () => {
-    if (BrowserWindow.getAllWindows().length === 0) await createWindow();
-  });
-});
-
-app.on('window-all-closed', () => {
-  // On macOS keep running in tray; on Windows/Linux quit
-  if (process.platform !== 'darwin') {
-    shutdown();
-  }
-});
-
-app.on('before-quit', () => {
-  app.isQuitting = true;
-});
+    { label: 'Open', click:
