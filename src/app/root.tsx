@@ -9,7 +9,7 @@ import {
 } from 'react-router';
 import './global.css';
 import { Toaster } from 'sonner';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 const SessionProvider = ({ children }: { children: React.ReactNode }) => <>{children}</>;
 
@@ -19,8 +19,12 @@ function AppGuard({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
   const location = useLocation();
   const [checking, setChecking] = useState(true);
+  const checked = useRef(false);
 
   useEffect(() => {
+    if (checked.current) return;
+    checked.current = true;
+
     const publicPaths = ['/account/signin', '/account/activate'];
     if (publicPaths.includes(location.pathname)) {
       setChecking(false);
@@ -29,7 +33,6 @@ function AppGuard({ children }: { children: React.ReactNode }) {
 
     async function check() {
       try {
-        // Check session via GET
         const authRes = await fetch('http://localhost:8080/api/auth/token', {
           credentials: 'include',
         });
@@ -40,7 +43,6 @@ function AppGuard({ children }: { children: React.ReactNode }) {
           return;
         }
 
-        // No session — check license by attempting dummy signin
         const licRes = await fetch('http://localhost:8080/api/auth/token', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -62,7 +64,7 @@ function AppGuard({ children }: { children: React.ReactNode }) {
     }
 
     check();
-  }, [location.pathname]);
+  }, []);
 
   if (checking) {
     return (
