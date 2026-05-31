@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, dialog, shell, Menu, Tray, nativeImage } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, shell, Menu, Tray, nativeImage, session } = require('electron');
 const path = require('node:path');
 const { serve } = require('@hono/node-server');
 
@@ -35,7 +35,7 @@ async function createWindow() {
       preload: path.join(__dirname, 'preload.cjs'),
       contextIsolation: true,
       nodeIntegration: false,
-      webSecurity: true,
+      webSecurity: false,
       sandbox: false,
     },
     titleBarStyle: 'hiddenInset',
@@ -48,15 +48,21 @@ async function createWindow() {
       responseHeaders: {
         ...details.responseHeaders,
         'Content-Security-Policy': [
-          "default-src 'self'; " +
+          "default-src 'self' 'unsafe-inline' 'unsafe-eval' http://localhost:* ws://localhost:*; " +
           "script-src 'self' 'unsafe-inline' 'unsafe-eval'; " +
           "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
-          "font-src 'self' https://fonts.gstatic.com; " +
-          "connect-src 'self' ws://localhost:8081 http://localhost:8080; " +
+          "font-src 'self' https://fonts.gstatic.com data:; " +
+          "connect-src 'self' ws://localhost:* http://localhost:*; " +
           "img-src 'self' data: blob:;"
         ],
       },
     });
+  });
+
+  mainWindow.webContents.session.webRequest.onBeforeSendHeaders((details, callback) => {
+    details.requestHeaders['Origin'] = 'http://localhost:8080';
+    details.requestHeaders['Access-Control-Allow-Origin'] = '*';
+    callback({ requestHeaders: details.requestHeaders });
   });
 
   mainWindow.once('ready-to-show', () => {
