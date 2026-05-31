@@ -11,11 +11,9 @@ import './global.css';
 import { Toaster } from 'sonner';
 import { useEffect, useState, useRef } from 'react';
 
-const SessionProvider = ({ children }: { children: React.ReactNode }) => <>{children}</>;
-
 export const links = () => [];
 
-function AppGuard({ children }: { children: React.ReactNode }) {
+function AppGuard() {
   const navigate = useNavigate();
   const location = useLocation();
   const [checking, setChecking] = useState(true);
@@ -32,26 +30,20 @@ function AppGuard({ children }: { children: React.ReactNode }) {
     }
 
     async function check() {
-      // Wait 2 seconds for local server to be ready
       await new Promise(resolve => setTimeout(resolve, 2000));
-
       try {
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), 5000);
-
         const authRes = await fetch('http://localhost:8080/api/auth/token', {
           credentials: 'include',
           signal: controller.signal,
         });
         clearTimeout(timeout);
         const authData = await authRes.json();
-
         if (authData.user) {
           setChecking(false);
           return;
         }
-
-        // No session — check license
         const licRes = await fetch('http://localhost:8080/api/auth/token', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -59,7 +51,6 @@ function AppGuard({ children }: { children: React.ReactNode }) {
           credentials: 'include',
         });
         const licData = await licRes.json();
-
         if (licData.error?.includes('License error')) {
           navigate('/account/activate');
         } else {
@@ -92,7 +83,7 @@ function AppGuard({ children }: { children: React.ReactNode }) {
     );
   }
 
-  return <>{children}</>;
+  return <Outlet />;
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -105,7 +96,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <AppGuard>{children}</AppGuard>
+        {children}
         <Toaster position="bottom-right" />
         <ScrollRestoration />
         <Scripts />
@@ -115,9 +106,5 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return (
-    <SessionProvider>
-      <Outlet />
-    </SessionProvider>
-  );
+  return <AppGuard />;
 }
