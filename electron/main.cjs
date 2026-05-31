@@ -9,7 +9,6 @@ let localServer = null;
 const APP_PORT = 8080;
 const WS_PORT = 8081;
 const IS_DEV = false;
-const VITE_DEV_URL = 'http://localhost:5173';
 
 const gotLock = app.requestSingleInstanceLock();
 if (!gotLock) {
@@ -31,7 +30,7 @@ async function createWindow() {
     minWidth: 1024,
     minHeight: 680,
     title: 'AfyaCore HMS',
-    const iconPath = path.join(__dirname, 'icon.png');
+    icon: path.join(__dirname, 'icon.png'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.cjs'),
       contextIsolation: true,
@@ -62,7 +61,6 @@ async function createWindow() {
 
   mainWindow.once('ready-to-show', () => {
     mainWindow.show();
-    if (IS_DEV) mainWindow.webContents.openDevTools();
   });
 
   mainWindow.on('closed', () => { mainWindow = null; });
@@ -72,11 +70,7 @@ async function createWindow() {
     return { action: 'deny' };
   });
 
-  if (IS_DEV) {
-    await mainWindow.loadURL(VITE_DEV_URL);
-  } else {
-    await mainWindow.loadFile(path.join(__dirname, '../build/client/index.html'));
-  }
+  await mainWindow.loadFile(path.join(__dirname, '../build/client/index.html'));
 }
 
 async function startLocalServer() {
@@ -121,7 +115,7 @@ function shutdown() {
 }
 
 function createTray() {
-  const iconPath = path.join(__dirname, '../public/tray-icon.png');
+  const iconPath = path.join(__dirname, 'icon.png');
   const icon = nativeImage.createFromPath(iconPath);
   tray = new Tray(icon.resize({ width: 16, height: 16 }));
 
