@@ -29,30 +29,30 @@ function AppGuard({ children }: { children: React.ReactNode }) {
 
     async function check() {
       try {
-        // Check license first
-        const licRes = await fetch('http://localhost:8080/api/auth/token', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ action: 'license-status' }),
-          credentials: 'include',
-        });
-        const licData = await licRes.json();
-        if (!licData.valid) {
-          navigate('/account/activate');
-          return;
-        }
-
-        // Check auth session
+        // Check session via GET
         const authRes = await fetch('http://localhost:8080/api/auth/token', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ action: 'session' }),
           credentials: 'include',
         });
         const authData = await authRes.json();
-        if (!authData.user) {
-          navigate('/account/signin');
+
+        if (authData.user) {
+          setChecking(false);
           return;
+        }
+
+        // No session — check license by attempting dummy signin
+        const licRes = await fetch('http://localhost:8080/api/auth/token', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'signin', email: '', password: '' }),
+          credentials: 'include',
+        });
+        const licData = await licRes.json();
+
+        if (licData.error?.includes('License error')) {
+          navigate('/account/activate');
+        } else {
+          navigate('/account/signin');
         }
       } catch {
         navigate('/account/signin');
