@@ -32,10 +32,18 @@ function AppGuard({ children }: { children: React.ReactNode }) {
     }
 
     async function check() {
+      // Wait 2 seconds for local server to be ready
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
       try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 5000);
+
         const authRes = await fetch('http://localhost:8080/api/auth/token', {
           credentials: 'include',
+          signal: controller.signal,
         });
+        clearTimeout(timeout);
         const authData = await authRes.json();
 
         if (authData.user) {
@@ -43,6 +51,7 @@ function AppGuard({ children }: { children: React.ReactNode }) {
           return;
         }
 
+        // No session — check license
         const licRes = await fetch('http://localhost:8080/api/auth/token', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
