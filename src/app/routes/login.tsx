@@ -1,308 +1,168 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router";
-import { useAuthStore } from "../stores";
+/**
+ * src/app/routes/login.tsx
+ *
+ * Sign-in page.
+ * Shows after license activation and on every subsequent launch.
+ * Displays the hospital name from the license file.
+ */
+import {
+  data, redirect, Form,
+  useActionData, useLoaderData, useNavigation,
+} from 'react-router';
+import type { ActionFunctionArgs, LoaderFunctionArgs } from 'react-router';
+import { isLicensed } from '~/lib/license';
+import {
+  getSession, loginUser, createSession, makeLoginCookie,
+} from '~/lib/auth.server';
 
-type Step = "credentials" | "mfa" | "change_password";
+export async function loader({ request }: LoaderFunctionArgs) {
+  const license = isLicensed();
+  if (!license.licensed) throw redirect('/activate');
+
+  const user = await getSession(request);
+  if (user) {
+    if (user.must_change_password) throw redirect('/change-password');
+    throw redirect('/dashboard');
+  }
+
+  const url = new URL(request.url);
+  return {
+    hospitalName: license.hospitalName!,
+    activated: url.searchParams.get('activated') === '1',
+    loggedOut: url.searchParams.get('out') === '1',
+  };
+}
+
+export async function action({ request }: ActionFunctionArgs) {
+  const license = isLicensed();
+  if (!license.licensed) throw redirect('/activate');
+
+  const form = await request.formData();
+  const username = String(form.get('username') ?? '').trim().toLowerCase();
+  const password = String(form.get('password') ?? '');
+
+  if (!username || !password) {
+    return data({ error: 'Username and password are required.' }, { status: 400 });
+  }
+
+  const result = await loginUser(username, password);
+  if (!result.success) {
+    return data({ error: result.error }, { status: 401 });
+  }
+
+  const token = await createSession(result.user.id);
+  const cookie = makeLoginCookie(token);
+
+  if (result.user.must_change_password) {
+    throw redirect('/change-password', { headers: { 'Set-Cookie': cookie } });
+  }
+  throw redirect('/dashboard', { headers: { 'Set-Cookie': cookie } });
+}
 
 export default function LoginPage() {
-  const { login, verifyMfa, changePassword, user, isLoading, error, clearError } = useAuthStore();
-  const navigate = useNavigate();
-
-  const [step, setStep] = useState<Step>("credentials");
-  const [tempToken, setTempToken] = useState("");
-  const [form, setForm] = useState({ username: "", password: "", mfaCode: "", newPassword: "", confirmPassword: "" });
-  const [localError, setLocalError] = useState("");
-  const [showPass, setShowPass] = useState(false);
-
-  // Already logged in
-  useEffect(() => {
-    if (user) navigate("/dashboard", { replace: true });
-  }, [user, navigate]);
-
-  useEffect(() => {
-    // Request browser notification permission
-    if ("Notification" in window && Notification.permission === "default") {
-      Notification.requestPermission();
-    }
-  }, []);
-
-  const handleCredentials = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLocalError("");
-    clearError();
-    if (!form.username.trim() || !form.password.trim()) {
-      setLocalError("Username and password are required");
-      return;
-    }
-    try {
-      const fp = await getDeviceFingerprint();
-      const result = await login(form.username.trim(), form.password, fp);
-      if (result.requiresMfa && result.tempToken) {
-        setTempToken(result.tempToken);
-        setStep("mfa");
-      }
-      // If mustChangePassword set by store, handled via useEffect above → route to dashboard first
-    } catch {
-      // error handled in store
-    }
-  };
-
-  const handleMfa = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLocalError("");
-    if (form.mfaCode.length !== 6) {
-      setLocalError("Enter the 6-digit code from your authenticator app");
-      return;
-    }
-    try {
-      await verifyMfa(tempToken, form.mfaCode);
-    } catch (err) {
-      setLocalError((err as Error).message);
-    }
-  };
-
-  const handleChangePassword = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLocalError("");
-    if (form.newPassword !== form.confirmPassword) {
-      setLocalError("Passwords do not match");
-      return;
-    }
-    try {
-      await changePassword(form.password, form.newPassword);
-      navigate("/dashboard", { replace: true });
-    } catch (err) {
-      setLocalError((err as Error).message);
-    }
-  };
-
-  const displayError = localError || error;
+  const { hospitalName, activated, loggedOut } = useLoaderData<typeof loader>();
+  const actionData = useActionData<typeof action>();
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === 'submitting';
 
   return (
-    <div style={s.page}>
-      {/* Background pattern */}
-      <div style={s.bgPattern} />
-
-      <div style={s.card}>
-        {/* Branding */}
-        <div style={s.brand}>
-          <div style={s.brandIcon}>⚕️</div>
-          <h1 style={s.brandName}>
-            <span style={{ color: "#10b981" }}>Afya</span>Core
-          </h1>
-          <p style={s.brandSub}>Enterprise Hospital Management System</p>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 flex items-center justify-center p-4">
+      <div className="w-full max-w-sm">
+        {/* Brand */}
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-600 mb-4 shadow-lg shadow-blue-600/30">
+            <svg className="w-9 h-9 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+              <path strokeLinecap="round" strokeLinejoin="round"
+                d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
+            </svg>
+          </div>
+          <h1 className="text-2xl font-bold text-white tracking-tight">AfyaCore HMS</h1>
+          <p className="text-blue-300 text-sm mt-1 font-medium">{hospitalName}</p>
         </div>
 
-        {/* ── Step: Credentials ── */}
-        {step === "credentials" && (
-          <form onSubmit={handleCredentials} style={s.form}>
-            <h2 style={s.formTitle}>Sign In</h2>
-            <p style={s.formSub}>Enter your hospital credentials to continue</p>
+        {/* Banners */}
+        {activated && (
+          <div className="flex items-start gap-3 bg-green-500/10 border border-green-500/30 rounded-xl px-4 py-3 mb-5">
+            <svg className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m4.5 12.75 6 6 9-13.5" />
+            </svg>
+            <div>
+              <p className="text-green-300 text-sm font-medium">License activated successfully.</p>
+              <p className="text-green-400/70 text-xs mt-0.5">
+                Sign in with username <strong className="text-green-300">admin</strong> and
+                password <strong className="text-green-300">Admin@1234</strong>
+              </p>
+            </div>
+          </div>
+        )}
 
-            <div style={s.field}>
-              <label style={s.label}>Username or Email</label>
+        {loggedOut && (
+          <div className="flex items-center gap-3 bg-slate-500/10 border border-slate-500/30 rounded-xl px-4 py-3 mb-5">
+            <p className="text-slate-400 text-sm">You have been signed out.</p>
+          </div>
+        )}
+
+        {/* Card */}
+        <div className="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-8 shadow-2xl">
+          <h2 className="text-lg font-semibold text-white mb-6">Sign in</h2>
+
+          <Form method="post" className="space-y-5">
+            <div>
+              <label htmlFor="username" className="block text-sm font-medium text-slate-300 mb-2">
+                Username
+              </label>
               <input
+                id="username"
+                name="username"
                 type="text"
-                value={form.username}
-                onChange={(e) => setForm({ ...form, username: e.target.value })}
-                style={s.input}
-                placeholder="username or email@hospital.com"
-                autoFocus
                 autoComplete="username"
-                disabled={isLoading}
+                autoFocus
+                className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/15 text-white
+                           placeholder:text-slate-500 text-sm
+                           focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                placeholder="Enter your username"
               />
             </div>
 
-            <div style={s.field}>
-              <label style={s.label}>Password</label>
-              <div style={s.inputWrapper}>
-                <input
-                  type={showPass ? "text" : "password"}
-                  value={form.password}
-                  onChange={(e) => setForm({ ...form, password: e.target.value })}
-                  style={{ ...s.input, paddingRight: 44 }}
-                  placeholder="••••••••"
-                  autoComplete="current-password"
-                  disabled={isLoading}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPass(!showPass)}
-                  style={s.eyeBtn}
-                  tabIndex={-1}
-                >
-                  {showPass ? "🙈" : "👁"}
-                </button>
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-slate-300 mb-2">
+                Password
+              </label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autoComplete="current-password"
+                className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/15 text-white
+                           placeholder:text-slate-500 text-sm
+                           focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                placeholder="Enter your password"
+              />
+            </div>
+
+            {actionData?.error && (
+              <div className="flex items-start gap-3 bg-red-500/10 border border-red-500/30 rounded-xl px-4 py-3">
+                <svg className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                </svg>
+                <p className="text-red-300 text-sm">{actionData.error}</p>
               </div>
-            </div>
+            )}
 
-            {displayError && <div style={s.errorBox}>{displayError}</div>}
-
-            <button type="submit" style={s.submitBtn} disabled={isLoading}>
-              {isLoading ? <span style={s.spinner} /> : "Sign In →"}
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 disabled:opacity-60
+                         disabled:cursor-not-allowed text-white font-semibold text-sm
+                         transition-colors shadow-lg shadow-blue-600/20
+                         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-transparent"
+            >
+              {isSubmitting ? 'Signing in…' : 'Sign in'}
             </button>
-
-            <p style={s.forgotLink}>
-              Forgot password? Contact your <strong>IT Administrator</strong>
-            </p>
-          </form>
-        )}
-
-        {/* ── Step: MFA ── */}
-        {step === "mfa" && (
-          <form onSubmit={handleMfa} style={s.form}>
-            <div style={s.mfaIcon}>🔐</div>
-            <h2 style={s.formTitle}>Two-Factor Authentication</h2>
-            <p style={s.formSub}>Enter the 6-digit code from your authenticator app</p>
-
-            <div style={s.mfaInputGroup}>
-              <input
-                type="text"
-                inputMode="numeric"
-                pattern="[0-9]{6}"
-                maxLength={6}
-                value={form.mfaCode}
-                onChange={(e) => setForm({ ...form, mfaCode: e.target.value.replace(/\D/g, "") })}
-                style={s.mfaInput}
-                placeholder="000000"
-                autoFocus
-                disabled={isLoading}
-              />
-            </div>
-
-            {displayError && <div style={s.errorBox}>{displayError}</div>}
-
-            <button type="submit" style={s.submitBtn} disabled={isLoading || form.mfaCode.length !== 6}>
-              {isLoading ? <span style={s.spinner} /> : "Verify →"}
-            </button>
-            <button type="button" onClick={() => setStep("credentials")} style={s.backBtn}>
-              ← Back to login
-            </button>
-          </form>
-        )}
-
-        {/* ── Step: Change Password ── */}
-        {step === "change_password" && (
-          <form onSubmit={handleChangePassword} style={s.form}>
-            <div style={s.mfaIcon}>🔑</div>
-            <h2 style={s.formTitle}>Set New Password</h2>
-            <p style={s.formSub}>Your password must be changed before continuing</p>
-
-            <div style={s.field}>
-              <label style={s.label}>New Password</label>
-              <input
-                type="password"
-                value={form.newPassword}
-                onChange={(e) => setForm({ ...form, newPassword: e.target.value })}
-                style={s.input}
-                placeholder="At least 8 characters"
-                autoFocus
-              />
-            </div>
-            <div style={s.field}>
-              <label style={s.label}>Confirm New Password</label>
-              <input
-                type="password"
-                value={form.confirmPassword}
-                onChange={(e) => setForm({ ...form, confirmPassword: e.target.value })}
-                style={s.input}
-                placeholder="Repeat password"
-              />
-            </div>
-
-            <PasswordStrength password={form.newPassword} />
-
-            {displayError && <div style={s.errorBox}>{displayError}</div>}
-
-            <button type="submit" style={s.submitBtn} disabled={isLoading}>
-              {isLoading ? <span style={s.spinner} /> : "Set Password →"}
-            </button>
-          </form>
-        )}
-
-        {/* Footer */}
-        <div style={s.cardFooter}>
-          <span style={s.secureTag}>🔒 256-bit Encrypted • HIPAA-Compliant Architecture</span>
+          </Form>
         </div>
+        <p className="text-center text-slate-600 text-xs mt-6">AfyaCore HMS · Licensed Software</p>
       </div>
     </div>
   );
 }
-
-// ─── Password strength indicator ─────────────────────────────────────────────
-function PasswordStrength({ password }: { password: string }) {
-  const checks = [
-    { label: "8+ characters", ok: password.length >= 8 },
-    { label: "Uppercase letter", ok: /[A-Z]/.test(password) },
-    { label: "Number", ok: /[0-9]/.test(password) },
-    { label: "Symbol", ok: /[^A-Za-z0-9]/.test(password) },
-  ];
-  const score = checks.filter((c) => c.ok).length;
-  const colors = ["#ef4444", "#f97316", "#eab308", "#10b981"];
-  const labels = ["Weak", "Fair", "Good", "Strong"];
-
-  if (!password) return null;
-  return (
-    <div style={{ marginBottom: 12 }}>
-      <div style={{ display: "flex", gap: 4, marginBottom: 6 }}>
-        {[0, 1, 2, 3].map((i) => (
-          <div key={i} style={{ flex: 1, height: 4, borderRadius: 2, background: i < score ? colors[score - 1] : "#e2e8f0", transition: "background 0.3s" }} />
-        ))}
-      </div>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-        {checks.map((c) => (
-          <span key={c.label} style={{ fontSize: 11, color: c.ok ? "#10b981" : "#94a3b8" }}>
-            {c.ok ? "✓" : "○"} {c.label}
-          </span>
-        ))}
-        {score > 0 && (
-          <span style={{ marginLeft: "auto", fontSize: 11, fontWeight: 700, color: colors[score - 1] }}>
-            {labels[score - 1]}
-          </span>
-        )}
-      </div>
-    </div>
-  );
-}
-
-// ─── Device fingerprint ───────────────────────────────────────────────────────
-async function getDeviceFingerprint(): Promise<string> {
-  const components = [
-    navigator.userAgent,
-    navigator.language,
-    screen.width + "x" + screen.height,
-    new Date().getTimezoneOffset().toString(),
-    navigator.hardwareConcurrency?.toString() ?? "0",
-  ].join("|");
-  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(components));
-  return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, "0")).join("").substring(0, 32);
-}
-
-// ─── Styles ───────────────────────────────────────────────────────────────────
-const s: Record<string, React.CSSProperties> = {
-  page: { minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f172a 100%)", position: "relative", overflow: "hidden", fontFamily: "'Inter', system-ui, sans-serif" },
-  bgPattern: { position: "absolute", inset: 0, backgroundImage: "radial-gradient(circle at 20% 20%, rgba(16,185,129,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(59,130,246,0.15) 0%, transparent 50%)", pointerEvents: "none" },
-  card: { background: "#fff", borderRadius: 20, padding: "40px 44px 28px", width: "100%", maxWidth: 460, boxShadow: "0 24px 80px rgba(0,0,0,0.35)", position: "relative", zIndex: 1 },
-  brand: { textAlign: "center", marginBottom: 28 },
-  brandIcon: { fontSize: 40, marginBottom: 8 },
-  brandName: { fontSize: 32, fontWeight: 900, margin: 0, letterSpacing: -1 },
-  brandSub: { color: "#64748b", fontSize: 13, margin: "6px 0 0", fontWeight: 500 },
-  form: { display: "flex", flexDirection: "column", gap: 0 },
-  formTitle: { fontSize: 20, fontWeight: 700, color: "#0f172a", margin: "0 0 4px" },
-  formSub: { fontSize: 13, color: "#64748b", margin: "0 0 20px" },
-  field: { marginBottom: 16 },
-  label: { display: "block", fontSize: 13, fontWeight: 600, color: "#374151", marginBottom: 6 },
-  inputWrapper: { position: "relative" },
-  input: { width: "100%", padding: "10px 14px", border: "1.5px solid #e2e8f0", borderRadius: 10, fontSize: 14, outline: "none", transition: "border 0.2s", boxSizing: "border-box", color: "#0f172a", background: "#f8fafc" },
-  eyeBtn: { position: "absolute", right: 10, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", fontSize: 16, padding: 2 },
-  errorBox: { background: "#fef2f2", border: "1px solid #fecaca", borderRadius: 8, padding: "10px 14px", fontSize: 13, color: "#b91c1c", marginBottom: 14 },
-  submitBtn: { padding: "12px", background: "linear-gradient(135deg, #1d4ed8, #3b82f6)", color: "#fff", border: "none", borderRadius: 10, fontSize: 15, fontWeight: 700, cursor: "pointer", marginTop: 4, letterSpacing: 0.3, display: "flex", alignItems: "center", justifyContent: "center", gap: 8 },
-  forgotLink: { textAlign: "center", fontSize: 12, color: "#94a3b8", marginTop: 14, marginBottom: 0 },
-  backBtn: { background: "none", border: "none", color: "#3b82f6", cursor: "pointer", fontSize: 13, marginTop: 12, textAlign: "center" },
-  mfaIcon: { fontSize: 40, textAlign: "center", marginBottom: 8 },
-  mfaInputGroup: { display: "flex", justifyContent: "center", marginBottom: 16 },
-  mfaInput: { width: 160, padding: "14px", textAlign: "center", fontSize: 28, fontWeight: 700, letterSpacing: 12, border: "2px solid #3b82f6", borderRadius: 12, outline: "none", color: "#0f172a", background: "#eff6ff" },
-  spinner: { width: 18, height: 18, border: "2px solid rgba(255,255,255,0.4)", borderTopColor: "#fff", borderRadius: "50%", display: "inline-block", animation: "spin 0.7s linear infinite" },
-  cardFooter: { borderTop: "1px solid #f1f5f9", marginTop: 24, paddingTop: 16, textAlign: "center" },
-  secureTag: { fontSize: 11, color: "#94a3b8" },
-};

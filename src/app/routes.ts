@@ -29,16 +29,13 @@ function buildRouteTree(dir: string, basePath = ''): Tree {
 		paramName: '',
 	};
 
-	// Check if the current directory name indicates a parameter
 	const dirName = basePath.split('/').pop();
 	if (dirName?.startsWith('[') && dirName.endsWith(']')) {
 		node.isParam = true;
 		const paramName = dirName.slice(1, -1);
-
-		// Check if it's a catch-all parameter (e.g., [...ids])
 		if (paramName.startsWith('...')) {
 			node.isCatchAll = true;
-			node.paramName = paramName.slice(3); // Remove the '...' prefix
+			node.paramName = paramName.slice(3);
 		} else {
 			node.paramName = paramName;
 		}
@@ -54,7 +51,7 @@ function buildRouteTree(dir: string, basePath = ''): Tree {
 			node.children.push(childNode);
 		} else if (file === 'page.jsx') {
 			node.hasPage = true;
-    }
+		}
 	}
 
 	return node;
@@ -70,29 +67,21 @@ function generateRoutes(node: Tree): RouteConfigEntry[] {
 		if (node.path === '') {
 			routes.push(index(componentPath));
 		} else {
-			// Handle parameter routes
 			let routePath = node.path;
-
-			// Replace all parameter segments in the path
 			const segments = routePath.split('/');
 			const processedSegments = segments.map((segment) => {
 				if (segment.startsWith('[') && segment.endsWith(']')) {
 					const paramName = segment.slice(1, -1);
-
-					// Handle catch-all parameters (e.g., [...ids] becomes *)
 					if (paramName.startsWith('...')) {
-						return '*'; // React Router's catch-all syntax
+						return '*';
 					}
-					// Handle optional parameters (e.g., [[id]] becomes :id?)
 					if (paramName.startsWith('[') && paramName.endsWith(']')) {
 						return `:${paramName.slice(1, -1)}?`;
 					}
-					// Handle regular parameters (e.g., [id] becomes :id)
 					return `:${paramName}`;
 				}
 				return segment;
 			});
-
 			routePath = processedSegments.join('/');
 			routes.push(route(routePath, componentPath));
 		}
@@ -104,6 +93,7 @@ function generateRoutes(node: Tree): RouteConfigEntry[] {
 
 	return routes;
 }
+
 if (import.meta.env.DEV) {
 	import.meta.glob('./**/page.jsx', {});
 	if (import.meta.hot) {
@@ -112,8 +102,21 @@ if (import.meta.env.DEV) {
 		});
 	}
 }
+
+// ── Auth & License routes (added by AfyaCore auth system) ────────────────────
+const authRoutes: RouteConfigEntry[] = [
+	index('routes/_index.tsx'),
+	route('activate',        'routes/activate.tsx'),
+	route('login',           'routes/login.tsx'),
+	route('logout',          'routes/logout.tsx'),
+	route('change-password', 'routes/change-password.tsx'),
+	route('403',             'routes/403.tsx'),
+	route('users',           'routes/users.tsx'),
+];
+// ─────────────────────────────────────────────────────────────────────────────
+
 const tree = buildRouteTree(__dirname);
 const notFound = route('*?', './__create/not-found.tsx');
-const routes = [...generateRoutes(tree), notFound];
+const routes = [...authRoutes, ...generateRoutes(tree), notFound];
 
 export default routes;
