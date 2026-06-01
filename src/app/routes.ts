@@ -68,6 +68,7 @@ function generateRoutes(node: Tree): RouteConfigEntry[] {
 			routes.push(index(componentPath));
 		} else {
 			let routePath = node.path;
+
 			const segments = routePath.split('/');
 			const processedSegments = segments.map((segment) => {
 				if (segment.startsWith('[') && segment.endsWith(']')) {
@@ -82,6 +83,7 @@ function generateRoutes(node: Tree): RouteConfigEntry[] {
 				}
 				return segment;
 			});
+
 			routePath = processedSegments.join('/');
 			routes.push(route(routePath, componentPath));
 		}
@@ -103,19 +105,8 @@ if (import.meta.env.DEV) {
 	}
 }
 
-// ── Auth & License routes (added by AfyaCore auth system) ────────────────────
-const authRoutes: RouteConfigEntry[] = [
-	route('activate',        'routes/activate.tsx'),
-	route('login',           'routes/login.tsx'),
-	route('logout',          'routes/logout.tsx'),
-	route('change-password', 'routes/change-password.tsx'),
-	route('403',             'routes/403.tsx'),
-	route('users',           'routes/users.tsx'),
-];
-// ─────────────────────────────────────────────────────────────────────────────
-
 const tree = buildRouteTree(__dirname);
 const notFound = route('*?', './__create/not-found.tsx');
-const routes = [...authRoutes, ...generateRoutes(tree), notFound];
+const routes = [...generateRoutes(tree), notFound];
 
 export default routes;
