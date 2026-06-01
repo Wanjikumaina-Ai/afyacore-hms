@@ -23,7 +23,7 @@ import sql from '@/app/api/utils/sql.js';
 // It must be the same value you used in the license-key generator tool.
 // Change it before selling the first copy — after that, NEVER change it
 // or all existing license keys will stop working.
-export const AFYA_SECRET  = 'AFYATECH-WANJIKU-CHANGE-ME-2025';
+export const AFYA_SECRET = 'e8f999a73b1051b00aade44b4da93027127006c92eea6447546a9ce4b8e3d62257ef36f3fc823e668bc1656d50322efb';
 
 const SESSION_COOKIE = 'afya_session';
 const SESSION_DAYS   = 7;

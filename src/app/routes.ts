@@ -105,7 +105,6 @@ if (import.meta.env.DEV) {
 
 // ── Auth & License routes (added by AfyaCore auth system) ────────────────────
 const authRoutes: RouteConfigEntry[] = [
-	index('routes/_index.tsx'),
 	route('activate',        'routes/activate.tsx'),
 	route('login',           'routes/login.tsx'),
 	route('logout',          'routes/logout.tsx'),
