@@ -9,7 +9,12 @@ let localServer = null;
 
 const APP_PORT = 8080;
 const WS_PORT = 8081;
-const IS_DEV = false;
+const IS_DEV = process.env.NODE_ENV === 'development' || process.argv.includes('--dev');
+
+console.log('[AfyaCore] Electron app starting...');
+console.log('[AfyaCore] Development mode:', IS_DEV);
+console.log('[AfyaCore] Node version:', process.version);
+console.log('[AfyaCore] Electron version:', process.versions.electron);
 
 const gotLock = app.requestSingleInstanceLock();
 if (!gotLock) {
@@ -82,6 +87,8 @@ async function createWindow() {
 
 async function startLocalServer() {
   try {
+    console.log('[AfyaCore] Starting local server on port', APP_PORT, '...');
+    
     const { apiRouter } = await import('../dist-server/server/routes/api.js');
     const { db } = await import('../dist-server/lib/db/database.js');
     const { wsServer } = await import('../dist-server/server/websocket/ws-server.js');
@@ -275,10 +282,22 @@ function setupIpcHandlers() {
 }
 
 app.whenReady().then(async () => {
-  await startLocalServer();
-  setupIpcHandlers();
-  createTray();
-  await createWindow();
+  console.log('[AfyaCore] App ready, starting server and window...');
+  try {
+    await startLocalServer();
+    console.log('[AfyaCore] Local server started successfully');
+    
+    setupIpcHandlers();
+    createTray();
+    
+    console.log('[AfyaCore] Creating main window...');
+    await createWindow();
+    console.log('[AfyaCore] Main window created');
+  } catch (err) {
+    console.error('[AfyaCore] Fatal error during startup:', err);
+    dialog.showErrorBox('Startup Error', `AfyaCore failed to start: ${err.message}`);
+    app.quit();
+  }
 
   app.on('activate', async () => {
     if (BrowserWindow.getAllWindows().length === 0) await createWindow();
