@@ -3,8 +3,8 @@ import { reactRouter } from "@react-router/dev/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { resolve } from "node:path";
 
-export default defineConfig({
-  base: "./",
+export default defineConfig(({ command }) => ({
+  base: command === "build" ? "./" : "/",
   plugins: [
     reactRouter(),
     tsconfigPaths(),
@@ -14,4 +14,4 @@ export default defineConfig({
       "@": resolve(__dirname, "src"),
     },
   },
-});
+}));

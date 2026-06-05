@@ -7,9 +7,12 @@
  * Fallback (npm run dev without Electron): <project-root>/data/
  */
 
-import initSqlJs from 'sql.js';
+import { createRequire } from 'module';
 import { join } from 'path';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
+
+const require = createRequire(import.meta.url);
+const initSqlJs = require('sql.js');
 
 const DATA_DIR = process.env.AFYA_DATA_DIR || join(process.cwd(), 'data');
 const DB_PATH  = join(DATA_DIR, 'afyacore.db');

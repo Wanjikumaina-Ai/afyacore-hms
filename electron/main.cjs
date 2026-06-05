@@ -1,6 +1,7 @@
 const { app, BrowserWindow, ipcMain, dialog, shell, Menu, Tray, nativeImage, session } = require('electron');
 const path = require('node:path');
 const { serve } = require('@hono/node-server');
+const fs = require('fs');
 
 let mainWindow = null;
 let tray = null;
@@ -76,7 +77,7 @@ async function createWindow() {
     return { action: 'deny' };
   });
 
-  await mainWindow.loadFile(path.join(__dirname, '../build/client/index.html'));
+  await mainWindow.loadURL('http://localhost:8080/');
 }
 
 async function startLocalServer() {
@@ -95,7 +96,50 @@ async function startLocalServer() {
 
     wsServer.init(WS_PORT);
 
-    localServer = serve({ fetch: apiRouter.fetch, port: APP_PORT }, () => {
+    const clientPath = path.join(__dirname, '../build/client');
+    const indexPath = path.join(clientPath, 'index.html');
+
+    // Create a wrapper fetch handler that combines static files and API routes
+    const fetch = async (req) => {
+      const url = new URL(req.url);
+      const pathname = url.pathname;
+
+      // Serve static assets and index.html from build/client
+      if (pathname.startsWith('/assets/') || pathname === '/' || !pathname.includes('.')) {
+        try {
+          let filePath = pathname === '/' ? indexPath : path.join(clientPath, pathname);
+          if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+            const content = fs.readFileSync(filePath);
+            const ext = path.extname(filePath);
+            const mimeType = {
+              '.html': 'text/html',
+              '.js': 'application/javascript',
+              '.css': 'text/css',
+              '.json': 'application/json',
+              '.png': 'image/png',
+              '.jpg': 'image/jpeg',
+              '.svg': 'image/svg+xml',
+              '.woff': 'font/woff',
+              '.woff2': 'font/woff2',
+            }[ext] || 'application/octet-stream';
+            return new Response(content, { headers: { 'Content-Type': mimeType } });
+          }
+        } catch (e) {
+          // Fall through to index.html for SPA routing
+          try {
+            const content = fs.readFileSync(indexPath);
+            return new Response(content, { headers: { 'Content-Type': 'text/html' } });
+          } catch {
+            return new Response('Not Found', { status: 404 });
+          }
+        }
+      }
+
+      // Route everything else through the API router
+      return apiRouter.fetch(req);
+    };
+
+    localServer = serve({ fetch, port: APP_PORT }, () => {
       console.log(`[AfyaCore] Local API server running on http://localhost:${APP_PORT}`);
     });
 

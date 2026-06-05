@@ -1,7 +1,3 @@
-/**
- * REPLACE: apps/web/src/app/account/signin/page.jsx
- */
-
 import { useState } from "react";
 import useAuth from "@/utils/useAuth";
 
@@ -10,6 +6,7 @@ export default function SigninPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [focusedField, setFocusedField] = useState(null);
   const { signInWithCredentials } = useAuth();
 
   const onSubmit = async (e) => {
@@ -25,78 +22,151 @@ export default function SigninPage() {
   };
 
   return (
-    <div className="flex min-h-screen w-full items-center justify-center bg-[#F8FAFC] p-4 font-sans">
-      <div className="w-full max-w-md">
-        <div className="mb-8 text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-xl bg-[#0F172A] text-white">
-            <svg
-              className="h-10 w-10"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-              />
-            </svg>
+    <div style={{
+      minHeight: "100vh",
+      width: "100%",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      background: "linear-gradient(135deg, #0a0f1e 0%, #0d1b2a 50%, #0a1628 100%)",
+      fontFamily: "'Segoe UI', system-ui, -apple-system, sans-serif",
+      padding: "24px",
+    }}>
+      <div style={{ width: "100%", maxWidth: "420px" }}>
+
+        {/* Logo + Title */}
+        <div style={{ textAlign: "center", marginBottom: "40px" }}>
+          <div style={{
+            width: "88px", height: "88px",
+            borderRadius: "24px",
+            background: "rgba(255,255,255,0.07)",
+            border: "1px solid rgba(255,255,255,0.12)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            margin: "0 auto 20px",
+            boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
+          }}>
+            <img src="/icon.png" alt="AfyaCore" style={{ width: "60px", height: "60px", objectFit: "contain" }} />
           </div>
-          <h1 className="text-2xl font-bold text-[#0F172A]">AfyaCore</h1>
-          <p className="mt-1 text-sm text-slate-500">
-            Clinic Management System
+          <h1 style={{ color: "#ffffff", fontSize: "28px", fontWeight: "700", margin: "0 0 6px", letterSpacing: "-0.5px" }}>
+            AfyaCore HMS
+          </h1>
+          <p style={{ color: "rgba(255,255,255,0.45)", fontSize: "14px", margin: 0 }}>
+            Hospital Management System
           </p>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
-          <h2 className="mb-6 text-xl font-semibold text-[#0F172A]">Sign In</h2>
+        {/* Card */}
+        <div style={{
+          background: "rgba(255,255,255,0.05)",
+          border: "1px solid rgba(255,255,255,0.1)",
+          borderRadius: "20px",
+          padding: "36px",
+          boxShadow: "0 24px 64px rgba(0,0,0,0.5)",
+          backdropFilter: "blur(12px)",
+        }}>
+          <h2 style={{ color: "#ffffff", fontSize: "20px", fontWeight: "600", margin: "0 0 24px" }}>
+            Welcome back
+          </h2>
 
           {error && (
-            <div className="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            <div style={{
+              background: "rgba(239,68,68,0.1)",
+              border: "1px solid rgba(239,68,68,0.3)",
+              borderRadius: "10px",
+              padding: "12px 16px",
+              color: "#fca5a5",
+              fontSize: "13px",
+              marginBottom: "20px",
+            }}>
               {error}
             </div>
           )}
 
-          <form onSubmit={onSubmit} className="space-y-4">
-            <div>
-              <label className="mb-1.5 block text-sm font-medium text-[#374151]">
-                Email
+          <form onSubmit={onSubmit}>
+            {/* Email */}
+            <div style={{ marginBottom: "16px" }}>
+              <label style={{ display: "block", color: "rgba(255,255,255,0.7)", fontSize: "13px", fontWeight: "500", marginBottom: "8px" }}>
+                Email address
               </label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                onFocus={() => setFocusedField("email")}
+                onBlur={() => setFocusedField(null)}
                 required
                 placeholder="admin@clinic.com"
-                className="w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-[#0F172A] placeholder-slate-400 outline-none focus:border-[#0F172A] focus:ring-2 focus:ring-[#0F172A]/10"
+                style={{
+                  width: "100%",
+                  padding: "12px 16px",
+                  background: "rgba(255,255,255,0.06)",
+                  border: focusedField === "email" ? "1px solid rgba(99,179,237,0.8)" : "1px solid rgba(255,255,255,0.1)",
+                  borderRadius: "10px",
+                  color: "#ffffff",
+                  fontSize: "14px",
+                  outline: "none",
+                  boxSizing: "border-box",
+                  transition: "border 0.2s",
+                  boxShadow: focusedField === "email" ? "0 0 0 3px rgba(99,179,237,0.15)" : "none",
+                }}
               />
             </div>
-            <div>
-              <label className="mb-1.5 block text-sm font-medium text-[#374151]">
+
+            {/* Password */}
+            <div style={{ marginBottom: "24px" }}>
+              <label style={{ display: "block", color: "rgba(255,255,255,0.7)", fontSize: "13px", fontWeight: "500", marginBottom: "8px" }}>
                 Password
               </label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                onFocus={() => setFocusedField("password")}
+                onBlur={() => setFocusedField(null)}
                 required
-                placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
-                className="w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-[#0F172A] placeholder-slate-400 outline-none focus:border-[#0F172A] focus:ring-2 focus:ring-[#0F172A]/10"
+                placeholder="••••••••"
+                style={{
+                  width: "100%",
+                  padding: "12px 16px",
+                  background: "rgba(255,255,255,0.06)",
+                  border: focusedField === "password" ? "1px solid rgba(99,179,237,0.8)" : "1px solid rgba(255,255,255,0.1)",
+                  borderRadius: "10px",
+                  color: "#ffffff",
+                  fontSize: "14px",
+                  outline: "none",
+                  boxSizing: "border-box",
+                  transition: "border 0.2s",
+                  boxShadow: focusedField === "password" ? "0 0 0 3px rgba(99,179,237,0.15)" : "none",
+                }}
               />
             </div>
+
+            {/* Button */}
             <button
               type="submit"
               disabled={loading}
-              className="mt-2 w-full rounded-lg bg-[#0F172A] py-3 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:opacity-60"
+              style={{
+                width: "100%",
+                padding: "13px",
+                background: loading ? "rgba(59,130,246,0.5)" : "linear-gradient(135deg, #3b82f6, #2563eb)",
+                border: "none",
+                borderRadius: "10px",
+                color: "#ffffff",
+                fontSize: "15px",
+                fontWeight: "600",
+                cursor: loading ? "not-allowed" : "pointer",
+                boxShadow: "0 4px 16px rgba(37,99,235,0.4)",
+                transition: "opacity 0.2s",
+                letterSpacing: "0.3px",
+              }}
             >
-              {loading ? "Signing inâ€¦" : "Sign In"}
+              {loading ? "Signing in..." : "Sign In"}
             </button>
           </form>
         </div>
 
-        <p className="mt-6 text-center text-xs text-slate-400">
-          AfyaCore Â· Licensed Software Â· Contact your administrator for access
+        <p style={{ textAlign: "center", color: "rgba(255,255,255,0.25)", fontSize: "12px", marginTop: "24px" }}>
+          AfyaCore · Licensed Software · Contact your administrator for access
         </p>
       </div>
     </div>

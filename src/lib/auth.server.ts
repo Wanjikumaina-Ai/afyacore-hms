@@ -40,8 +40,9 @@ function getDbPath(): string {
 export async function getDb(): Promise<Database> {
   if (_db) return _db;
 
-  // sql.js ships as CJS; dynamic require keeps this SSR-compatible
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  // sql.js ships as CJS; use createRequire for ESM SSR compatibility
+  const { createRequire } = await import('node:module');
+  const require = createRequire(import.meta.url);
   const initSqlJs = require(
     path.resolve(process.cwd(), 'node_modules/sql.js/dist/sql-asm.js')
   ) as (cfg?: object) => Promise<{ Database: new (data?: Buffer) => Database }>;

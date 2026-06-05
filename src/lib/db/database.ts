@@ -1,9 +1,15 @@
-import initSqlJs, { type Database, type SqlJsStatic } from 'sql.js';
+import { createRequire } from 'node:module';
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { app } from 'electron';
 import { fileURLToPath } from 'node:url';
 import { dirname } from 'node:path';
+
+// Use createRequire for CommonJS imports in ESM context
+const require = createRequire(import.meta.url);
+const initSqlJs = require('sql.js');
+type Database = ReturnType<Awaited<ReturnType<typeof initSqlJs>>['Database']>;
+type SqlJsStatic = Awaited<ReturnType<typeof initSqlJs>>;
 
 // ESM __dirname shim (not available in ES modules natively)
 const __filename = fileURLToPath(import.meta.url);

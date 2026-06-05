@@ -1,0 +1,1126 @@
+﻿Legend: production dependency, optional only, dev only
+
+afyacore-hms@1.0.0 C:\Users\Compuera Solutions\Desktop\AfyaCore\anything\apps\web (PRIVATE)
+Γöé
+Γöé   dependencies:
+Γö£ΓöÇΓö¼ @chakra-ui/react@2.8.2
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/accordion@2.3.1
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/descendant@3.1.0
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-context@2.1.0
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-use-merge-refs@2.1.0
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/icon@3.2.0
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/system@2.6.2 peer
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-context@2.1.0
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-use-controllable-state@2.1.0
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-use-callback-ref@2.1.0
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-use-merge-refs@2.1.0
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/system@2.6.2 peer
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/color-mode@2.2.0
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-utils@2.0.12
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @emotion/react@11.11.4 peer
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @emotion/styled@11.11.0 peer
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/transition@2.1.0
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ framer-motion@12.40.0 peer
+Γöé Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓö¼ framer-motion@12.40.0 peer
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé ΓööΓöÇΓö¼ react-dom@18.3.1 peer
+Γöé Γöé Γöé   ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/alert@2.2.2
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/icon@3.2.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-context@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/spinner@2.1.0
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/avatar@2.3.0
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/image@2.1.0
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-use-safe-layout-effect@2.1.0
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-children-utils@2.0.6
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-context@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/breadcrumb@2.2.0
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-children-utils@2.0.6 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-context@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/button@2.1.0
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-context@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-merge-refs@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/spinner@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/card@2.2.0
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/checkbox@2.3.2
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/form-control@2.2.0
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/icon@3.2.0
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-context@2.1.0 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-types@2.0.7
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-merge-refs@2.1.0 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-context@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-types@2.0.7
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-use-callback-ref@2.1.0
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-controllable-state@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-merge-refs@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-use-safe-layout-effect@2.1.0
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-use-update-effect@2.1.0
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/visually-hidden@2.2.0
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/close-button@2.1.1
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/icon@3.2.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/control-box@2.1.0
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/counter@2.1.0
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-callback-ref@2.1.0 [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/css-reset@2.3.0
+Γöé Γöé Γö£ΓöÇΓö¼ @emotion/react@11.11.4 peer
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @emotion/use-insertion-effect-with-fallbacks@1.2.0
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/editable@3.1.0
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-context@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-types@2.0.7 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-callback-ref@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-controllable-state@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-use-focus-on-pointer-down@2.1.0
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-use-event-listener@2.1.0
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-merge-refs@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-safe-layout-effect@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-update-effect@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/focus-lock@2.1.0
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓö¼ react-focus-lock@2.13.7
+Γöé Γöé   Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé   Γö£ΓöÇΓö¼ react-clientside-effect@1.2.8
+Γöé Γöé   Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé   Γö£ΓöÇΓö¼ use-callback-ref@1.3.3
+Γöé Γöé   Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé   ΓööΓöÇΓö¼ use-sidecar@1.1.3
+Γöé Γöé     ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/form-control@2.2.0
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/icon@3.2.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-context@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-types@2.0.7 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-merge-refs@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/hooks@2.2.1
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-utils@2.0.12
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/icon@3.2.0
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/image@2.1.0
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-safe-layout-effect@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/input@2.1.2
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/form-control@2.2.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-children-utils@2.0.6 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-context@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/layout@2.3.1
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/icon@3.2.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-children-utils@2.0.6 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-context@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/live-region@2.1.0
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/media-query@3.3.0
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-env@3.1.0
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-safe-layout-effect@2.1.0 [deduped]
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/menu@2.2.1
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/clickable@2.1.0
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-merge-refs@2.1.0 [deduped]
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/descendant@3.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/popper@3.1.0
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-types@2.0.7 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-merge-refs@2.1.0 [deduped]
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-children-utils@2.0.6 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-context@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-use-animation-state@2.1.0
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-event-listener@2.1.0 [deduped]
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-controllable-state@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-use-disclosure@2.1.0
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-callback-ref@2.1.0 [deduped]
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-use-focus-effect@2.1.0
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-event-listener@2.1.0 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-safe-layout-effect@2.1.0 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-use-update-effect@2.1.0
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-merge-refs@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-use-outside-click@2.2.0
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-callback-ref@2.1.0 [deduped]
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-update-effect@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/transition@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ framer-motion@12.40.0 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/modal@2.3.1
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/close-button@2.1.1
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/icon@3.2.0 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/focus-lock@2.1.0
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé ΓööΓöÇΓö¼ react-focus-lock@2.13.7
+Γöé Γöé Γöé   ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/portal@2.1.0
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-context@2.1.0 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-safe-layout-effect@2.1.0 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-context@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-types@2.0.7 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-merge-refs@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/transition@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ framer-motion@12.40.0 peer [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓö¼ react-dom@18.3.1 peer
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓö¼ react-remove-scroll@2.7.2
+Γöé Γöé   Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé   Γö£ΓöÇΓö¼ react-remove-scroll-bar@2.3.8
+Γöé Γöé   Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé   Γö£ΓöÇΓö¼ react-style-singleton@2.2.3
+Γöé Γöé   Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé   Γö£ΓöÇΓöÇ use-callback-ref@1.3.3 [deduped]
+Γöé Γöé   ΓööΓöÇΓöÇ use-sidecar@1.1.3 [deduped]
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/number-input@2.1.2
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/counter@2.1.0
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-callback-ref@2.1.0 [deduped]
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/form-control@2.2.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/icon@3.2.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-context@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-types@2.0.7 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-callback-ref@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-use-event-listener@2.1.0
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-callback-ref@2.1.0 [deduped]
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-use-interval@2.1.0
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-callback-ref@2.1.0 [deduped]
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-merge-refs@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-safe-layout-effect@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-update-effect@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/pin-input@2.1.0
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/descendant@3.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-children-utils@2.0.6 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-context@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-controllable-state@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-merge-refs@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/popover@2.2.1
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/close-button@2.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/popper@3.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-context@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-types@2.0.7 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-animation-state@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-disclosure@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-focus-effect@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-focus-on-pointer-down@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-merge-refs@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ framer-motion@12.40.0 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/popper@3.1.0
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-types@2.0.7 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-merge-refs@2.1.0 [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/portal@2.1.0
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-context@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-safe-layout-effect@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/progress@2.2.0
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-context@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/provider@2.4.2
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/css-reset@2.3.0
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @emotion/react@11.11.4 peer [deduped]
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/portal@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-env@3.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @emotion/react@11.11.4 peer [deduped]
+Γöé Γöé Γö£ΓöÇΓö¼ @emotion/styled@11.11.0 peer
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @emotion/react@11.11.4 peer [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @emotion/use-insertion-effect-with-fallbacks@1.2.0 [deduped]
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/radio@2.1.2
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/form-control@2.2.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-context@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-types@2.0.7 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-merge-refs@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-env@3.1.0
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-safe-layout-effect@2.1.0 [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/select@2.1.2
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/form-control@2.2.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/skeleton@2.1.0
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/media-query@3.3.0
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-env@3.1.0
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-use-previous@2.1.0
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/skip-nav@2.1.0
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/slider@2.1.0
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-context@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-types@2.0.7 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-callback-ref@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-controllable-state@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-use-latest-ref@2.1.0
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-merge-refs@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-use-pan-event@2.1.0
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-use-latest-ref@2.1.0
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-use-size@2.1.0
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-update-effect@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/spinner@2.1.0
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/stat@2.1.1
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/icon@3.2.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-context@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/stepper@2.3.1
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/icon@3.2.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-context@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/switch@2.1.2
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/checkbox@2.3.2
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/form-control@2.2.0
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-context@2.1.0 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-types@2.0.7 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-callback-ref@2.1.0 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-use-controllable-state@2.1.0
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-merge-refs@2.1.0 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-safe-layout-effect@2.1.0 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-update-effect@2.1.0 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/visually-hidden@2.2.0
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ framer-motion@12.40.0 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/system@2.6.2
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/color-mode@2.2.0
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-safe-layout-effect@2.1.0 [deduped]
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-utils@2.0.12 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @emotion/react@11.11.4 peer [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @emotion/styled@11.11.0 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/table@2.1.0
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-context@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/tabs@3.0.0
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/clickable@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/descendant@3.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-children-utils@2.0.6 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-context@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-controllable-state@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-merge-refs@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-safe-layout-effect@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/tag@3.1.1
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/icon@3.2.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-context@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/textarea@2.1.2
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/form-control@2.2.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/toast@7.0.2
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/alert@2.2.2
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/icon@3.2.0 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-context@2.1.0 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/spinner@2.1.0
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/close-button@2.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/portal@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-context@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓö¼ @chakra-ui/react-use-timeout@2.1.0
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-callback-ref@2.1.0 [deduped]
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-update-effect@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ framer-motion@12.40.0 peer [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/tooltip@2.3.1
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/popper@3.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/portal@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-types@2.0.7 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-disclosure@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-event-listener@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/react-use-merge-refs@2.1.0 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ framer-motion@12.40.0 peer [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/transition@2.1.0
+Γöé Γöé Γö£ΓöÇΓöÇ framer-motion@12.40.0 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @chakra-ui/visually-hidden@2.2.0
+Γöé Γöé Γö£ΓöÇΓöÇ @chakra-ui/system@2.6.2 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @emotion/react@11.11.4 peer
+Γöé Γöé Γö£ΓöÇΓö¼ @emotion/use-insertion-effect-with-fallbacks@1.2.0
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @emotion/styled@11.11.0 peer
+Γöé Γöé Γö£ΓöÇΓöÇ @emotion/react@11.11.4 peer [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @emotion/use-insertion-effect-with-fallbacks@1.2.0 [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ framer-motion@12.40.0 peer
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé ΓööΓöÇΓö¼ react-dom@18.3.1 peer
+Γöé   ΓööΓöÇΓöÇ react@18.3.1 peer
+Γö£ΓöÇΓö¼ @dnd-kit/core@6.3.1
+Γöé Γö£ΓöÇΓö¼ @dnd-kit/accessibility@3.1.1
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @dnd-kit/utilities@3.2.2
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γö£ΓöÇΓö¼ @dnd-kit/sortable@10.0.0
+Γöé Γö£ΓöÇΓö¼ @dnd-kit/core@6.3.1 peer
+Γöé Γöé Γö£ΓöÇΓö¼ @dnd-kit/accessibility@3.1.1
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓö¼ @dnd-kit/utilities@3.2.2
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓöÇ @dnd-kit/utilities@3.2.2 [deduped]
+Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γö£ΓöÇΓö¼ @emotion/react@11.11.4
+Γöé Γö£ΓöÇΓö¼ @emotion/use-insertion-effect-with-fallbacks@1.2.0
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γö£ΓöÇΓö¼ @emotion/styled@11.11.0
+Γöé Γö£ΓöÇΓöÇ @emotion/react@11.11.4 peer [deduped]
+Γöé Γö£ΓöÇΓöÇ @emotion/use-insertion-effect-with-fallbacks@1.2.0 [deduped]
+Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γö£ΓöÇΓö¼ @lshay/ui@0.1.32
+Γöé Γö£ΓöÇΓö¼ @hookform/resolvers@3.10.0
+Γöé Γöé ΓööΓöÇΓö¼ react-hook-form@7.76.1 peer
+Γöé Γöé   ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @radix-ui/react-accordion@1.2.12
+Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-collapsible@1.1.12
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-compose-refs@1.1.2
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-context@1.1.2
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-id@1.1.1
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-presence@1.1.5
+Γöé Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-primitive@2.1.3
+Γöé Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-use-controllable-state@1.2.2
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-use-layout-effect@1.1.1
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-collection@1.1.7
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-compose-refs@1.1.2 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-context@1.1.2 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.3 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-slot@1.2.3
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-compose-refs@1.1.2
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-context@1.1.2
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-direction@1.1.1
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-id@1.1.1
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-layout-effect@1.1.1 [deduped]
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-primitive@2.1.3
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-slot@1.2.3 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-use-controllable-state@1.2.2
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-use-effect-event@0.0.2
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-layout-effect@1.1.1 [deduped]
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓö¼ @radix-ui/react-alert-dialog@1.1.15
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-compose-refs@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-context@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-dialog@1.1.15
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-compose-refs@1.1.2 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-context@1.1.2 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-dismissable-layer@1.1.11
+Γöé Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-focus-guards@1.1.3
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-focus-scope@1.1.7
+Γöé Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-id@1.1.1 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-portal@1.1.9
+Γöé Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-presence@1.1.5 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.3 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-slot@1.2.3 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-controllable-state@1.2.2 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γöé Γöé ΓööΓöÇΓö¼ react-remove-scroll@2.7.2
+Γöé Γöé Γöé   ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.3 [deduped]
+Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-slot@1.2.3
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-compose-refs@1.1.2 [deduped]
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓö¼ @radix-ui/react-aspect-ratio@1.1.8
+Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-primitive@2.1.4
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-slot@1.2.4
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓö¼ @radix-ui/react-avatar@1.1.11
+Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-context@1.1.3
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.4 [deduped]
+Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-use-callback-ref@1.1.1
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-use-is-hydrated@0.1.0
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé ΓööΓöÇΓö¼ use-sync-external-store@1.6.0
+Γöé Γöé Γöé   ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-use-layout-effect@1.1.1
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓö¼ @radix-ui/react-checkbox@1.3.3
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-compose-refs@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-context@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-presence@1.1.5
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-compose-refs@1.1.2 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-layout-effect@1.1.1 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.3 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-controllable-state@1.2.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-use-previous@1.1.1
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-use-size@1.1.1
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-layout-effect@1.1.1 [deduped]
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓö¼ @radix-ui/react-collapsible@1.1.12
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-compose-refs@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-context@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-id@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-presence@1.1.5 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.3 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-controllable-state@1.2.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-layout-effect@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓö¼ @radix-ui/react-context-menu@2.2.16
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-context@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-menu@2.1.16
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-collection@1.1.7
+Γöé Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-compose-refs@1.1.2 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-context@1.1.2 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-direction@1.1.1
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-dismissable-layer@1.1.11 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-focus-guards@1.1.3 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-focus-scope@1.1.7 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-id@1.1.1 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-popper@1.2.8
+Γöé Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-portal@1.1.9 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-presence@1.1.5 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.3 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-roving-focus@1.1.11
+Γöé Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-slot@1.2.3 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-use-callback-ref@1.1.1
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react-remove-scroll@2.7.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.3 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-callback-ref@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-controllable-state@1.2.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓö¼ @radix-ui/react-dialog@1.1.15
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-compose-refs@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-context@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-dismissable-layer@1.1.11
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-compose-refs@1.1.2 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.3 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-callback-ref@1.1.1 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-use-escape-keydown@1.1.1
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-focus-guards@1.1.3
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-focus-scope@1.1.7
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-compose-refs@1.1.2 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.3 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-callback-ref@1.1.1 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-id@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-portal@1.1.9
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.3 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-layout-effect@1.1.1 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-presence@1.1.5 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.3 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-slot@1.2.3 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-controllable-state@1.2.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react-remove-scroll@2.7.2 [deduped]
+Γöé Γö£ΓöÇΓö¼ @radix-ui/react-dropdown-menu@2.1.16
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-compose-refs@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-context@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-id@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-menu@2.1.16 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.3 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-controllable-state@1.2.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓö¼ @radix-ui/react-hover-card@1.1.15
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-compose-refs@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-context@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-dismissable-layer@1.1.11 [deduped]
+Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-popper@1.2.8
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @floating-ui/react-dom@2.1.8
+Γöé Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-arrow@1.1.7
+Γöé Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-compose-refs@1.1.2 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-context@1.1.2 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.3 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-callback-ref@1.1.1 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-layout-effect@1.1.1 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-use-rect@1.1.1
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-use-size@1.1.1
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-portal@1.1.9 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-presence@1.1.5 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.3 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-controllable-state@1.2.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓö¼ @radix-ui/react-label@2.1.8
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.4 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓö¼ @radix-ui/react-menubar@1.1.16
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-collection@1.1.7 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-compose-refs@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-context@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-direction@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-id@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-menu@2.1.16 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.3 [deduped]
+Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-roving-focus@1.1.11
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-collection@1.1.7 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-compose-refs@1.1.2 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-context@1.1.2 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-direction@1.1.1 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-id@1.1.1 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.3 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-callback-ref@1.1.1 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-controllable-state@1.2.2 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-controllable-state@1.2.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓö¼ @radix-ui/react-navigation-menu@1.2.14
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-collection@1.1.7 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-compose-refs@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-context@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-direction@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-dismissable-layer@1.1.11 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-id@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-presence@1.1.5 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.3 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-callback-ref@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-controllable-state@1.2.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-layout-effect@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-previous@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-visually-hidden@1.2.3
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.3 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓö¼ @radix-ui/react-popover@1.1.15
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-compose-refs@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-context@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-dismissable-layer@1.1.11 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-focus-guards@1.1.3 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-focus-scope@1.1.7 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-id@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-popper@1.2.8 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-portal@1.1.9 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-presence@1.1.5 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.3 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-slot@1.2.3 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-controllable-state@1.2.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react-remove-scroll@2.7.2 [deduped]
+Γöé Γö£ΓöÇΓö¼ @radix-ui/react-progress@1.1.8
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-context@1.1.3 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.4 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓö¼ @radix-ui/react-radio-group@1.3.8
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-compose-refs@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-context@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-direction@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-presence@1.1.5 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.3 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-roving-focus@1.1.11 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-controllable-state@1.2.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-previous@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-size@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓö¼ @radix-ui/react-scroll-area@1.2.10
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-compose-refs@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-context@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-direction@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-presence@1.1.5 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.3 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-callback-ref@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-layout-effect@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓö¼ @radix-ui/react-select@2.2.6
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-collection@1.1.7 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-compose-refs@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-context@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-direction@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-dismissable-layer@1.1.11 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-focus-guards@1.1.3 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-focus-scope@1.1.7 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-id@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-popper@1.2.8 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-portal@1.1.9 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.3 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-slot@1.2.3 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-callback-ref@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-controllable-state@1.2.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-layout-effect@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-previous@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-visually-hidden@1.2.3 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react-remove-scroll@2.7.2 [deduped]
+Γöé Γö£ΓöÇΓö¼ @radix-ui/react-separator@1.1.8
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.4 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓö¼ @radix-ui/react-slider@1.3.6
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-collection@1.1.7 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-compose-refs@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-context@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-direction@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.3 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-controllable-state@1.2.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-layout-effect@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-previous@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-size@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓö¼ @radix-ui/react-slot@1.2.4
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-compose-refs@1.1.2 [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @radix-ui/react-switch@1.2.6
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-compose-refs@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-context@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.3 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-controllable-state@1.2.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-previous@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-size@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓö¼ @radix-ui/react-tabs@1.1.13
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-context@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-direction@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-id@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-presence@1.1.5 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.3 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-roving-focus@1.1.11 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-controllable-state@1.2.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓö¼ @radix-ui/react-toast@1.2.15
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-collection@1.1.7 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-compose-refs@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-context@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-dismissable-layer@1.1.11 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-portal@1.1.9 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-presence@1.1.5 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.3 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-callback-ref@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-controllable-state@1.2.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-layout-effect@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-visually-hidden@1.2.3 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓö¼ @radix-ui/react-toggle@1.1.10
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.3 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-controllable-state@1.2.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓö¼ @radix-ui/react-toggle-group@1.1.11
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-context@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-direction@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.3 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-roving-focus@1.1.11 [deduped]
+Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-toggle@1.1.10
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.3 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-controllable-state@1.2.2 [deduped]
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-controllable-state@1.2.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓö¼ @radix-ui/react-tooltip@1.2.8
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-compose-refs@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-context@1.1.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-dismissable-layer@1.1.11 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-id@1.1.1 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-popper@1.2.8 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-portal@1.1.9 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-presence@1.1.5 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-primitive@2.1.3 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-slot@1.2.3 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-controllable-state@1.2.2 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-visually-hidden@1.2.3 [deduped]
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓö¼ cmdk@0.2.1
+Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-dialog@1.0.0
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-compose-refs@1.0.0
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-context@1.0.0
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-dismissable-layer@1.0.0
+Γöé Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-focus-guards@1.0.0
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-focus-scope@1.0.0
+Γöé Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-id@1.0.0
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-portal@1.0.0
+Γöé Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-presence@1.0.0
+Γöé Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-primitive@1.0.0
+Γöé Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-slot@1.0.0
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-use-controllable-state@1.0.0
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γöé Γöé ΓööΓöÇΓö¼ react-remove-scroll@2.5.4
+Γöé Γöé Γöé   ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓö¼ embla-carousel-react@8.0.0-rc15
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ input-otp@1.4.2
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓö¼ lucide-react@0.358.0 peer
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ next-themes@0.2.1
+Γöé Γöé Γö£ΓöÇΓö¼ next@16.2.6 peer
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γöé Γöé ΓööΓöÇΓö¼ styled-jsx@5.1.6
+Γöé Γöé Γöé   ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ react-day-picker@8.10.2
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓö¼ react-hook-form@7.76.1
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ react-resizable-panels@0.0.55
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓö¼ sonner@1.7.4
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé ΓööΓöÇΓö¼ vaul@0.2.3
+Γöé   Γö£ΓöÇΓöÇ @radix-ui/react-dialog@1.1.15 [deduped]
+Γöé   Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé   ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γö£ΓöÇΓö¼ @react-aria/button@3.15.1
+Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ react-aria@3.49.0
+Γöé Γöé Γö£ΓöÇΓö¼ @react-types/shared@3.35.0
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γöé Γö£ΓöÇΓö¼ react-stately@3.47.0
+Γöé Γöé Γöé Γö£ΓöÇΓö¼ @react-types/shared@3.35.0
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé ΓööΓöÇΓöÇ use-sync-external-store@1.6.0 [deduped]
+Γöé Γöé ΓööΓöÇΓö¼ use-sync-external-store@1.6.0
+Γöé Γöé   ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γö£ΓöÇΓö¼ @react-router/fs-routes@7.16.0
+Γöé ΓööΓöÇΓö¼ @react-router/dev@7.16.0 peer
+Γöé   Γö£ΓöÇΓöÇ @react-router/node@7.16.0 [deduped]
+Γöé   Γö£ΓöÇΓö¼ @react-router/serve@7.16.0 peer
+Γöé   Γöé ΓööΓöÇΓöÇ react-router@7.15.1 peer [deduped]
+Γöé   ΓööΓöÇΓöÇ react-router@7.15.1 peer [deduped]
+Γö£ΓöÇΓö¼ @react-router/node@7.16.0
+Γöé ΓööΓöÇΓöÇ react-router@7.15.1 peer [deduped]
+Γö£ΓöÇΓö¼ @react-router/serve@7.16.0
+Γöé Γö£ΓöÇΓö¼ @react-router/express@7.16.0
+Γöé Γöé Γö£ΓöÇΓöÇ @react-router/node@7.16.0 [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react-router@7.15.1 peer [deduped]
+Γöé Γö£ΓöÇΓöÇ @react-router/node@7.16.0 [deduped]
+Γöé ΓööΓöÇΓöÇ react-router@7.15.1 peer [deduped]
+Γö£ΓöÇΓö¼ @tanstack/react-query@5.100.14
+Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γö£ΓöÇΓö¼ @tanstack/react-table@8.21.3
+Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γö£ΓöÇΓö¼ @vis.gl/react-google-maps@0.8.3
+Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γö£ΓöÇΓö¼ cmdk@1.1.1
+Γöé Γö£ΓöÇΓö¼ @radix-ui/react-compose-refs@1.1.2
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓöÇ @radix-ui/react-dialog@1.1.15 [deduped]
+Γöé Γö£ΓöÇΓö¼ @radix-ui/react-id@1.1.1
+Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-use-layout-effect@1.1.1 [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓö¼ @radix-ui/react-primitive@2.1.4
+Γöé Γöé Γö£ΓöÇΓö¼ @radix-ui/react-slot@1.2.4
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ @radix-ui/react-compose-refs@1.1.2 [deduped]
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γö£ΓöÇΓö¼ downshift@9.3.3
+Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γö£ΓöÇΓö¼ lucide-react@0.358.0
+Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γö£ΓöÇΓö¼ motion@12.40.0
+Γöé Γö£ΓöÇΓöÇ framer-motion@12.40.0 [deduped]
+Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γö£ΓöÇΓöÇ react@18.3.1
+Γö£ΓöÇΓö¼ react-colorful@5.7.0
+Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γö£ΓöÇΓö¼ react-day-picker@9.14.0
+Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γö£ΓöÇΓö¼ react-dom@18.3.1
+Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γö£ΓöÇΓö¼ react-hook-form@7.76.1
+Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γö£ΓöÇΓö¼ react-idle-timer@5.7.3
+Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γö£ΓöÇΓö¼ react-markdown@6.0.3
+Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γö£ΓöÇΓö¼ react-resizable-panels@2.1.9
+Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γö£ΓöÇΓö¼ react-router@7.15.1
+Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γö£ΓöÇΓö¼ react-router-dom@7.16.0
+Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé ΓööΓöÇΓö¼ react-router@7.16.0
+Γöé   Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé   ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γö£ΓöÇΓö¼ react-router-hono-server@2.26.0
+Γöé Γö£ΓöÇΓöÇ @react-router/dev@7.16.0 peer [deduped]
+Γöé ΓööΓöÇΓöÇ react-router@7.15.1 peer [deduped]
+Γö£ΓöÇΓö¼ recharts@2.15.4
+Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γö£ΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé ΓööΓöÇΓö¼ react-smooth@4.0.4
+Γöé   Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé   Γö£ΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé   ΓööΓöÇΓö¼ react-transition-group@4.4.5
+Γöé     Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé     ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γö£ΓöÇΓö¼ sonner@2.0.7
+Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γö£ΓöÇΓö¼ styled-jsx@5.1.7
+Γöé ΓööΓöÇΓöÇ react@18.3.1 peer
+Γö£ΓöÇΓö¼ vaul@1.1.2
+Γöé Γö£ΓöÇΓöÇ @radix-ui/react-dialog@1.1.15 [deduped]
+Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γö£ΓöÇΓö¼ zustand@5.0.13
+Γöé Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé ΓööΓöÇΓö¼ use-sync-external-store@1.6.0 peer
+Γöé   ΓööΓöÇΓöÇ react@18.3.1 peer
+Γöé
+Γöé   devDependencies:
+Γö£ΓöÇΓö¼ @react-router/dev@7.16.0
+Γöé Γö£ΓöÇΓö¼ @react-router/node@7.16.0
+Γöé Γöé ΓööΓöÇΓö¼ react-router@7.15.1 peer
+Γöé Γöé   Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé   ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+Γöé Γö£ΓöÇΓö¼ @react-router/serve@7.16.0 peer
+Γöé Γöé Γö£ΓöÇΓö¼ @react-router/express@7.16.0
+Γöé Γöé Γöé ΓööΓöÇΓö¼ react-router@7.15.1 peer
+Γöé Γöé Γöé   Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé Γöé Γöé   ΓööΓöÇΓöÇ react-dom@18.3.1 peer
+Γöé Γöé Γö£ΓöÇΓö¼ @react-router/node@7.16.0
+Γöé Γöé Γöé ΓööΓöÇΓöÇ react-router@7.15.1 peer [deduped]
+Γöé Γöé ΓööΓöÇΓöÇ react-router@7.15.1 peer [deduped]
+Γöé ΓööΓöÇΓö¼ react-router@7.15.1 peer
+Γöé   Γö£ΓöÇΓöÇ react@18.3.1 peer
+Γöé   ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+ΓööΓöÇΓö¼ @testing-library/react@16.3.2
+  Γö£ΓöÇΓöÇ react@18.3.1 peer
+  ΓööΓöÇΓöÇ react-dom@18.3.1 peer [deduped]
+
+1117 packages

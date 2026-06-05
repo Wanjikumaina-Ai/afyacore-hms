@@ -8,9 +8,12 @@
 import readline from 'readline';
 import { createHmac } from 'crypto';
 import bcrypt from 'bcryptjs';
-import initSqlJs from 'sql.js';
+import { createRequire } from 'module';
 import { join } from 'path';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
+
+const require = createRequire(import.meta.url);
+const initSqlJs = require('sql.js');
 
 // ── MUST MATCH license-key-generator.html exactly ─────────────────────────
 const AFYA_SECRET = 'AFYATECH-WANJIKU-CHANGE-ME-2025';

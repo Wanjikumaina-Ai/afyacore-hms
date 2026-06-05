@@ -128,8 +128,97 @@ async function startApiServer() {
     log("INFO", "RBAC seeded + default admin created");
   }
 
+
+  // ── Auth/token adapter ─────────────────────────────────────────
+  // The frontend calls POST/GET /api/auth/token (cookie-based).
+  // This bridges it to the actual auth_users + sessions DB tables.
+  const { randomBytes } = await import("node:crypto");
+  const bcrypt = await import("bcryptjs");
+
+  const authAdapter = new Hono();
+
+  // GET /api/auth/token — check active session from cookie
+  authAdapter.get("/api/auth/token", async (c) => {
+    const token = getCookieToken(c);
+    if (!token) return c.json({ user: null }, 200);
+    const { db } = services;
+    if (!db?.ready) return c.json({ user: null }, 200);
+    const session = db.findOne(
+      `SELECT s.*, u.id as uid, u.name, u.email, u.role, u.facility_id, u.department_id, u.avatar
+       FROM sessions s JOIN auth_users u ON u.id = s.user_id
+       WHERE s.token = ? AND datetime(s.expires_at) > datetime('now')`,
+      [token]
+    );
+    if (!session) return c.json({ user: null }, 200);
+    return c.json({
+      user: {
+        id: session.uid, name: session.name, email: session.email,
+        role: session.role, facilityId: session.facility_id,
+        departmentId: session.department_id, avatar: session.avatar,
+      }
+    });
+  });
+
+  // POST /api/auth/token — signin or signout
+  authAdapter.post("/api/auth/token", async (c) => {
+    const { db } = services;
+    if (!db?.ready) return c.json({ error: "Server starting up" }, 503);
+    const body = await c.req.json().catch(() => ({}));
+    const action = body.action;
+
+    if (action === "signout") {
+      const token = getCookieToken(c);
+      if (token) db.run("DELETE FROM sessions WHERE token = ?", [token]);
+      clearSessionCookie(c);
+      return c.json({ success: true });
+    }
+
+    if (action === "signin") {
+      const { email, password } = body;
+      if (!email || !password) return c.json({ error: "Email and password required" }, 400);
+      const user = db.findOne(
+        "SELECT * FROM auth_users WHERE email = ? AND is_active = 1", [email]
+      );
+      if (!user) return c.json({ error: "Invalid email or password" }, 401);
+      const valid = await bcrypt.default.compare(password, user.password_hash);
+      if (!valid) return c.json({ error: "Invalid email or password" }, 401);
+
+      const token = randomBytes(48).toString("hex");
+      const expires = new Date(Date.now() + 8 * 60 * 60 * 1000).toISOString();
+      db.run("DELETE FROM sessions WHERE user_id = ?", [user.id]);
+      db.run(
+        "INSERT INTO sessions (user_id, token, expires_at) VALUES (?, ?, ?)",
+        [user.id, token, expires]
+      );
+      setSessionCookie(c, token);
+      return c.json({
+        user: {
+          id: user.id, name: user.name, email: user.email,
+          role: user.role, facilityId: user.facility_id,
+          departmentId: user.department_id, avatar: user.avatar,
+        }
+      });
+    }
+
+    return c.json({ error: "Unknown action" }, 400);
+  });
+
+  function getCookieToken(c) {
+    const cookieHeader = c.req.header("Cookie") || "";
+    const match = cookieHeader.match(/(?:^|;\s*)afya_session=([^;]+)/);
+    return match ? match[1] : null;
+  }
+  function setSessionCookie(c, token) {
+    c.header("Set-Cookie", `afya_session=${token}; HttpOnly; Path=/; SameSite=Lax; Max-Age=28800`);
+  }
+  function clearSessionCookie(c) {
+    c.header("Set-Cookie", "afya_session=; HttpOnly; Path=/; SameSite=Lax; Max-Age=0");
+  }
+  // ── End auth adapter ───────────────────────────────────────────
+
   // Mount routers
   const rootApp = new Hono();
+  rootApp.route("/", authAdapter);
   rootApp.route("/", setupRouter);
   rootApp.route("/", apiRouter);
 
@@ -188,7 +277,7 @@ function createWindow(hash) {
   if (IS_DEV) {
     mainWindow.loadURL(`http://localhost:5173/${hash || ""}`);
   } else {
-    mainWindow.loadFile(path.join(ROOT, "dist/index.html"), { hash: hash || "/" });
+    mainWindow.loadFile(path.join(ROOT, "build/client/index.html"), { hash: hash || "/" });
   }
 }
 
@@ -262,7 +351,7 @@ function setupIPC() {
       setTimeout(() => {
         const url = IS_DEV ? "http://localhost:5173/#/dashboard" : null;
         if (url) mainWindow?.loadURL(url);
-        else mainWindow?.loadFile(path.join(ROOT, "dist/index.html"), { hash: "/dashboard" });
+        else mainWindow?.loadFile(path.join(ROOT, "build/client/index.html"), { hash: "/dashboard" });
       }, 300);
       return { success: true };
     } catch (e) { return { success: false, error: e.message }; }
