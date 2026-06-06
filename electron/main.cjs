@@ -11,8 +11,14 @@ const APP_PORT = 8080;
 const WS_PORT = 8081;
 const IS_DEV = process.env.NODE_ENV === 'development' || process.argv.includes('--dev');
 
+// In dev, Vite runs on 5173 and proxies /api → 8080.
+// In production, Electron serves everything from 8080.
+const VITE_PORT = process.env.ELECTRON_DEV_VITE_PORT || '5173';
+const APP_URL = IS_DEV ? `http://localhost:${VITE_PORT}` : `http://localhost:${APP_PORT}`;
+
 console.log('[AfyaCore] Electron app starting...');
 console.log('[AfyaCore] Development mode:', IS_DEV);
+console.log('[AfyaCore] Loading URL:', APP_URL);
 console.log('[AfyaCore] Node version:', process.version);
 console.log('[AfyaCore] Electron version:', process.versions.electron);
 
@@ -73,6 +79,10 @@ async function createWindow() {
 
   mainWindow.once('ready-to-show', () => {
     mainWindow.show();
+    // Open DevTools automatically in dev mode
+    if (IS_DEV) {
+      mainWindow.webContents.openDevTools();
+    }
   });
 
   mainWindow.on('closed', () => { mainWindow = null; });
@@ -82,7 +92,7 @@ async function createWindow() {
     return { action: 'deny' };
   });
 
-  await mainWindow.loadURL('http://localhost:8080/');
+  await mainWindow.loadURL(APP_URL);
 }
 
 async function startLocalServer() {
@@ -106,13 +116,15 @@ async function startLocalServer() {
     const clientPath = path.join(__dirname, '../build/client');
     const indexPath = path.join(clientPath, 'index.html');
 
-    // Create a wrapper fetch handler that combines static files and API routes
+    // Create a wrapper fetch handler that combines static files and API routes.
+    // In dev mode the static-file branch is never reached because the window
+    // loads from Vite (port 5173). In production it serves build/client.
     const fetch = async (req) => {
       const url = new URL(req.url);
       const pathname = url.pathname;
 
-      // Serve static assets and index.html from build/client
-      if (pathname.startsWith('/assets/') || pathname === '/' || !pathname.includes('.')) {
+      // Serve static assets and index.html from build/client (production only)
+      if (!IS_DEV && (pathname.startsWith('/assets/') || pathname === '/' || !pathname.includes('.'))) {
         try {
           let filePath = pathname === '/' ? indexPath : path.join(clientPath, pathname);
           if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {

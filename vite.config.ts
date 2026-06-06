@@ -14,4 +14,14 @@ export default defineConfig(({ command }) => ({
       "@": resolve(__dirname, "src"),
     },
   },
+  server: {
+    port: 5173,
+    strictPort: true, // fail instead of silently moving to another port
+    proxy: {
+      "/api": {
+        target: "http://localhost:8080",
+        changeOrigin: true,
+      },
+    },
+  },
 }));
