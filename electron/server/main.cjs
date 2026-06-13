@@ -119,14 +119,10 @@ async function startApiServer() {
   await db.initialize(DATA_DIR);
   log("INFO", "Database initialized at " + DATA_DIR);
 
-  // Seed RBAC once
-  const config = readConfig();
-  if (!config.rbacSeeded) {
-    seedPermissions();
-    await createDefaultSuperAdmin();
-    writeConfig({ rbacSeeded: true });
-    log("INFO", "RBAC seeded + default admin created");
-  }
+  // Seed roles/permissions (idempotent — safe to call every time).
+  // Never create a default admin — the setup wizard creates the first admin account.
+  seedPermissions();
+  log("INFO", "RBAC permissions seeded");
 
 
   // ── Auth/token adapter ─────────────────────────────────────────
@@ -218,6 +214,12 @@ async function startApiServer() {
 
   // Mount routers
   const rootApp = new Hono();
+
+  // Setup status endpoint — read by root.tsx before auth check
+  rootApp.get("/api/setup/status", (c) => {
+    return c.json({ complete: isSetupComplete() });
+  });
+
   rootApp.route("/", authAdapter);
   rootApp.route("/", setupRouter);
   rootApp.route("/", apiRouter);
@@ -236,11 +238,15 @@ async function startApiServer() {
 }
 
 // ── Create main window ────────────────────────────────────────
-function createWindow(hash) {
+function createWindow() {
+  const iconFile = path.join(__dirname, '../icon.ico');
+  const iconExists = fs.existsSync(iconFile);
+
   mainWindow = new BrowserWindow({
     width: 1400, height: 880,
     minWidth: 1024, minHeight: 680,
     title: APP_NAME,
+    icon: iconExists ? iconFile : undefined,
     backgroundColor: "#0f172a",
     show: false,
     titleBarStyle: "hiddenInset",
@@ -266,7 +272,7 @@ function createWindow(hash) {
 
   mainWindow.once("ready-to-show", () => {
     mainWindow.show();
-    if (IS_DEV) mainWindow.webContents.openDevTools({ mode: "detach" });
+    // DevTools: open manually with Ctrl+Shift+I
   });
 
   // Hide to tray instead of closing
@@ -274,36 +280,36 @@ function createWindow(hash) {
     if (!app.isQuitting) { e.preventDefault(); mainWindow.hide(); }
   });
 
-  const loadWithRetry = async (fn, retries = 3, delay = 1500) => {
-    for (let i = 0; i < retries; i++) {
-      try {
-        await Promise.race([
-          fn(),
-          new Promise((_, rej) => setTimeout(() => rej(new Error("loadURL timed out")), 15000)),
-        ]);
-        return;
-      } catch (err) {
-        log("WARN", `Window load attempt ${i + 1} failed: ${err.message}`);
-        if (i < retries - 1) await new Promise(r => setTimeout(r, delay));
-      }
-    }
-    log("ERROR", "Failed to load window after 3 attempts");
-  };
+  // root.tsx checks /api/setup/status and redirects to /account/setup automatically.
+  // No need to pass hash — just load the root and let React Router handle it.
+  mainWindow.webContents.on("did-fail-load", (_, code, desc) => {
+    if (code === -3) return; // ERR_ABORTED — ignore
+    log("WARN", `Page load failed (${code}: ${desc}) — retrying in 2s`);
+    setTimeout(() => {
+      if (!mainWindow) return;
+      if (IS_DEV) mainWindow.loadURL("http://localhost:5173/").catch(() => {});
+      else mainWindow.loadFile(path.join(ROOT, "build/client/index.html")).catch(() => {});
+    }, 2000);
+  });
 
   if (IS_DEV) {
-    loadWithRetry(() => mainWindow.loadURL(`http://localhost:5173/${hash || ""}`));
+    mainWindow.loadURL("http://localhost:5173/").catch((err) => {
+      log("WARN", "Initial loadURL failed: " + err.message);
+    });
   } else {
-    loadWithRetry(() => mainWindow.loadFile(path.join(ROOT, "build/client/index.html"), { hash: hash || "/" }));
+    mainWindow.loadFile(path.join(ROOT, "build/client/index.html")).catch((err) => {
+      log("WARN", "Initial loadFile failed: " + err.message);
+    });
   }
 }
 
 // ── System tray ───────────────────────────────────────────────
 function createTray() {
   try {
-    const iconPath = path.join(ROOT, "build/server/tray.ico");
-    const icon = fs.existsSync(iconPath)
-      ? nativeImage.createFromPath(iconPath).resize({ width: 16, height: 16 })
-      : nativeImage.createEmpty();
+    const trayIconPath = fs.existsSync(path.join(ROOT, "build/server/tray.ico"))
+      ? path.join(ROOT, "build/server/tray.ico")
+      : path.join(__dirname, "../icon.png");
+    const icon = nativeImage.createFromPath(trayIconPath).resize({ width: 16, height: 16 });
 
     tray = new Tray(icon);
     const ip = getLocalIP();
@@ -463,8 +469,8 @@ app.whenReady().then(async () => {
   setupIPC();
   createTray();
 
-  const hash = isSetupComplete() ? "#/dashboard" : "#/account/setup";
-  createWindow(hash);
+  // root.tsx handles all routing via /api/setup/status + /api/auth/token checks
+  createWindow();
   log("INFO", `Ready. Staff connect to: http://${getLocalIP()}:${APP_PORT}`);
 });
 

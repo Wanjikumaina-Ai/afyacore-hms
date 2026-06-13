@@ -7,7 +7,7 @@ import { useEffect, useState, useRef } from 'react';
 
 export const links = () => [];
 
-const publicPaths = ['/account/signin', '/account/activate'];
+const publicPaths = ['/account/signin', '/account/activate', '/account/setup'];
 const API_BASE = typeof window !== 'undefined' && window.location.protocol === 'file:' ? 'http://localhost:8080' : '';
 
 function AppGuard() {
@@ -23,6 +23,21 @@ function AppGuard() {
 
     async function check() {
       try {
+        // 1. Check setup via HTTP — more reliable than IPC.
+        //    If endpoint fails → assume setup needed (safe default).
+        try {
+          const setupCtrl = new AbortController();
+          setTimeout(() => setupCtrl.abort(), 4000);
+          const setupRes = await fetch(`${API_BASE}/api/setup/status`, { signal: setupCtrl.signal });
+          if (setupRes.ok) {
+            const setupData = await setupRes.json();
+            if (!setupData.complete) { navigate('/account/setup'); setChecking(false); return; }
+          }
+        } catch {
+          navigate('/account/setup'); setChecking(false); return;
+        }
+
+        // 2. Check auth session
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), 5000);
         const authRes = await fetch(`${API_BASE}/api/auth/token`, {
