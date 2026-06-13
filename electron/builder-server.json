@@ -1,0 +1,68 @@
+{
+  "appId": "com.afyacore.hms.server",
+  "productName": "AfyaCore HMS Server",
+  "copyright": "Copyright © 2026 AfyaCore",
+  "extraMetadata": {
+    "main": "electron/server/main.cjs"
+  },
+  "directories": {
+    "buildResources": "electron/assets",
+    "output": "dist-electron/server"
+  },
+  "files": [
+    "build/**/*",
+    "dist-server/**/*",
+    "electron/server/**/*",
+    "electron/shared/**/*",
+    "package.json",
+    "node_modules/**/*",
+    "!node_modules/.cache/**/*",
+    "!node_modules/.vite/**/*",
+    "!node_modules/**/*.map",
+    "!node_modules/**/test/**/*",
+    "!node_modules/**/tests/**/*",
+    "!node_modules/**/__tests__/**/*",
+    "!node_modules/**/docs/**/*",
+    "!node_modules/**/examples/**/*",
+    "!node_modules/**/*.md",
+    "!node_modules/**/*.ts",
+    "!node_modules/electron/**/*",
+    "!node_modules/electron-builder/**/*",
+    "!node_modules/vite/**/*",
+    "!node_modules/@vitejs/**/*",
+    "!node_modules/typescript/**/*",
+    "!node_modules/vitest/**/*",
+    "!node_modules/@react-router/dev/**/*"
+  ],
+  "npmRebuild": false,
+  "nodeGypRebuild": false,
+  "asar": false,
+  "win": {
+    "target": [{ "target": "nsis", "arch": ["x64"] }],
+    "icon": "electron/icon.ico",
+    "requestedExecutionLevel": "requireAdministrator"
+  },
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true,
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true,
+    "shortcutName": "AfyaCore HMS Server",
+    "installerIcon": "electron/icon.ico",
+    "uninstallerIcon": "electron/icon.ico",
+    "installerHeaderIcon": "electron/icon.ico",
+    "deleteAppDataOnUninstall": false,
+    "installerSidebar": "electron/assets/installer-sidebar.bmp",
+    "license": "electron/assets/LICENSE.txt"
+  },
+  "mac": {
+    "target": [{ "target": "dmg", "arch": ["x64", "arm64"] }],
+    "icon": "electron/icon.icns",
+    "category": "public.app-category.medical"
+  },
+  "linux": {
+    "target": ["AppImage"],
+    "icon": "electron/icon.png",
+    "category": "MedicalSoftware"
+  }
+}

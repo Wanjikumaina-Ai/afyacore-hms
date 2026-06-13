@@ -274,10 +274,26 @@ function createWindow(hash) {
     if (!app.isQuitting) { e.preventDefault(); mainWindow.hide(); }
   });
 
+  const loadWithRetry = async (fn, retries = 3, delay = 1500) => {
+    for (let i = 0; i < retries; i++) {
+      try {
+        await Promise.race([
+          fn(),
+          new Promise((_, rej) => setTimeout(() => rej(new Error("loadURL timed out")), 15000)),
+        ]);
+        return;
+      } catch (err) {
+        log("WARN", `Window load attempt ${i + 1} failed: ${err.message}`);
+        if (i < retries - 1) await new Promise(r => setTimeout(r, delay));
+      }
+    }
+    log("ERROR", "Failed to load window after 3 attempts");
+  };
+
   if (IS_DEV) {
-    mainWindow.loadURL(`http://localhost:5173/${hash || ""}`);
+    loadWithRetry(() => mainWindow.loadURL(`http://localhost:5173/${hash || ""}`));
   } else {
-    mainWindow.loadFile(path.join(ROOT, "build/client/index.html"), { hash: hash || "/" });
+    loadWithRetry(() => mainWindow.loadFile(path.join(ROOT, "build/client/index.html"), { hash: hash || "/" }));
   }
 }
 
@@ -412,6 +428,14 @@ function setupIPC() {
   ipcMain.handle("license:status",    () => services.licenseService?.validateLicense());
 }
 
+// ── GPU / sandbox fixes (must run before app.whenReady) ─────────────────────
+app.disableHardwareAcceleration();
+app.commandLine.appendSwitch('no-sandbox');
+app.commandLine.appendSwitch('disable-gpu');
+app.commandLine.appendSwitch('disable-gpu-sandbox');
+app.commandLine.appendSwitch('disable-software-rasterizer');
+app.commandLine.appendSwitch('ignore-certificate-errors');
+
 // ── App lifecycle ─────────────────────────────────────────────
 app.whenReady().then(async () => {
   log("INFO", `Starting ${APP_NAME} v${app.getVersion()}`);
@@ -439,7 +463,7 @@ app.whenReady().then(async () => {
   setupIPC();
   createTray();
 
-  const hash = isSetupComplete() ? "#/dashboard" : "#/setup";
+  const hash = isSetupComplete() ? "#/dashboard" : "#/account/setup";
   createWindow(hash);
   log("INFO", `Ready. Staff connect to: http://${getLocalIP()}:${APP_PORT}`);
 });

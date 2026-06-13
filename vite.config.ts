@@ -16,7 +16,6 @@ export default defineConfig(({ command }) => ({
   },
   server: {
     port: 5173,
-    strictPort: true, // fail instead of silently moving to another port
     proxy: {
       "/api": {
         target: "http://localhost:8080",
