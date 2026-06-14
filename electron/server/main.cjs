@@ -30,6 +30,7 @@ let mainWindow  = null;
 let tray        = null;
 let localServer = null;
 let services    = {};
+let _db         = null; // assigned in startApiServer(); used by isSetupComplete()
 
 // ── Single instance lock ──────────────────────────────────────
 const gotLock = app.requestSingleInstanceLock();
@@ -65,6 +66,14 @@ function writeConfig(data) {
   fs.writeFileSync(CONFIG_FILE, JSON.stringify({ ...readConfig(), ...data }, null, 2));
 }
 function isSetupComplete() {
+  // Source of truth: SQLite system_config table, written by POST /auth/setup-admin.
+  if (_db) {
+    try {
+      const row = _db.findOne(`SELECT value FROM system_config WHERE key = 'setup_complete'`);
+      return row?.value === '1';
+    } catch {}
+  }
+  // Fallback before DB is loaded
   const c = readConfig();
   return !!(c.setupComplete && c.hospitalName && c.licenseActivated);
 }
@@ -104,6 +113,131 @@ async function loadServerModules() {
   return { db, apiRouter, setupRouter, wsServer, seedPermissions, createDefaultSuperAdmin, licenseService };
 }
 
+
+// ── Setup wizard HTML ─────────────────────────────────────────────────────────
+// Served at GET /setup-wizard from Hono. No React or Vite dependency.
+const SETUP_WIZARD_HTML = (isDev) => `<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AfyaCore HMS — Setup</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#0a0f1e,#0d1b2a);font-family:system-ui,sans-serif;padding:24px}
+.card{width:100%;max-width:480px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+  border-radius:20px;padding:40px;box-shadow:0 24px 64px rgba(0,0,0,.5)}
+h1{color:#fff;font-size:22px;font-weight:700;text-align:center;margin-bottom:4px}
+.sub{color:rgba(255,255,255,.4);font-size:13px;text-align:center;margin-bottom:28px}
+.steps{display:flex;margin-bottom:28px;border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,.08)}
+.step{flex:1;padding:7px 2px;font-size:11px;font-weight:600;text-align:center;
+  background:transparent;color:rgba(255,255,255,.3);border-right:1px solid rgba(255,255,255,.08)}
+.step.active{background:rgba(59,130,246,.25);color:#93c5fd}
+.step.done{background:rgba(16,185,129,.2);color:#34d399}
+h2{color:#fff;font-size:17px;font-weight:600;margin-bottom:6px}
+p.desc{color:rgba(255,255,255,.45);font-size:13px;margin-bottom:20px}
+label{display:block;color:rgba(255,255,255,.7);font-size:13px;font-weight:500;margin-bottom:5px}
+input{width:100%;padding:10px 14px;background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-size:14px;
+  outline:none;margin-bottom:14px;font-family:inherit}
+input:focus{border-color:rgba(99,179,237,.8)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.btn{width:100%;padding:12px;border-radius:10px;border:none;background:rgba(59,130,246,.85);
+  color:#fff;font-size:15px;font-weight:600;cursor:pointer;margin-top:4px}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn-back{background:none;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);
+  padding:10px;border-radius:10px;width:100%;cursor:pointer;margin-top:8px;font-size:14px}
+.err{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:10px;
+  padding:11px 14px;color:#fca5a5;font-size:13px;margin-bottom:16px;display:none}
+.done-icon{font-size:48px;text-align:center;margin:12px 0}
+.done-title{color:#34d399;font-size:19px;font-weight:700;text-align:center;margin-bottom:8px}
+.done-text{color:rgba(255,255,255,.5);font-size:14px;text-align:center;line-height:1.6}
+.info{background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);border-radius:10px;
+  padding:12px 14px;color:rgba(255,255,255,.6);font-size:13px;text-align:center;margin-top:20px}
+.logo{text-align:center;margin-bottom:28px}
+.logo svg{display:block;margin:0 auto 12px}
+</style></head><body><div class="card">
+  <div class="logo">
+    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+      <rect width="48" height="48" rx="14" fill="rgba(59,130,246,0.15)" stroke="rgba(99,179,237,0.3)" stroke-width="1"/>
+      <path d="M24 14v20M14 24h20" stroke="rgba(99,179,237,0.9)" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+    <h1>AfyaCore HMS</h1>
+    <p class="sub">First-Time System Setup</p>
+  </div>
+  <div class="steps">
+    <div class="step active" id="s0">Hospital</div>
+    <div class="step" id="s1">Admin Account</div>
+    <div class="step" id="s2">Done</div>
+  </div>
+  <div id="err" class="err"></div>
+  <div id="p0">
+    <h2>Hospital Details</h2>
+    <p class="desc">Enter this facility's information.</p>
+    <label>Hospital / Facility Name *</label>
+    <input id="hospitalName" placeholder="Kenyatta General Hospital"/>
+    <label>Phone Number</label>
+    <input id="hospitalPhone" placeholder="+254 700 000 000"/>
+    <label>Physical Address</label>
+    <input id="hospitalAddress" placeholder="Nairobi, Kenya"/>
+    <label>NHIF Code (optional)</label>
+    <input id="nhifCode" placeholder="HF-XXXXX"/>
+    <button class="btn" onclick="step1()">Continue →</button>
+  </div>
+  <div id="p1" style="display:none">
+    <h2>Super-Admin Account</h2>
+    <p class="desc">Master account for this hospital. Hand credentials to the admin after setup.</p>
+    <div class="g2">
+      <div><label>First Name *</label><input id="firstName" placeholder="John"/></div>
+      <div><label>Last Name *</label><input id="lastName" placeholder="Doe"/></div>
+    </div>
+    <label>Username *</label><input id="username" placeholder="admin"/>
+    <label>Email *</label><input id="email" type="email" placeholder="admin@hospital.co.ke"/>
+    <label>Password *</label><input id="password" type="password" placeholder="Min 8 characters"/>
+    <label>Confirm Password *</label><input id="confirm" type="password" placeholder="Repeat password"/>
+    <button class="btn" id="submitBtn" onclick="submit()">Complete Setup →</button>
+    <button class="btn-back" onclick="back()">← Back</button>
+  </div>
+  <div id="p2" style="display:none">
+    <div class="done-icon">✅</div>
+    <h2 class="done-title">Setup Complete!</h2>
+    <p class="done-text">Sign in with the admin credentials you just created.</p>
+    <div class="info">📡 Staff connect to this machine's IP on port <strong style="color:#93c5fd">8080</strong></div>
+    <button class="btn" style="background:rgba(16,185,129,.8);margin-top:20px" onclick="launch()">Go to Sign In →</button>
+  </div>
+</div>
+<script>
+const REDIRECT='${isDev ? "http://localhost:5173/" : "/"}';
+const g=id=>document.getElementById(id);
+const v=id=>g(id).value.trim();
+function err(m){const e=g('err');e.textContent=m;e.style.display=m?'block':'none';}
+function steps(n){['s0','s1','s2'].forEach((s,i)=>g(s).className='step'+(i<n?' done':i===n?' active':''));}
+function show(p){['p0','p1','p2'].forEach(id=>g(id).style.display=id===p?'':'none');}
+function step1(){err('');if(!v('hospitalName')){err('Hospital name is required.');return;}show('p1');steps(1);}
+function back(){err('');show('p0');steps(0);}
+async function submit(){
+  err('');
+  if(!v('firstName')||!v('lastName')||!v('username')||!v('email')||!g('password').value){
+    err('All fields marked * are required.');return;}
+  if(g('password').value!==g('confirm').value){err('Passwords do not match.');return;}
+  if(g('password').value.length<8){err('Password must be at least 8 characters.');return;}
+  const btn=g('submitBtn');btn.disabled=true;btn.textContent='Setting up…';
+  try{
+    const r=await fetch('http://localhost:8080/auth/setup-admin',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({username:v('username').toLowerCase(),email:v('email').toLowerCase(),
+        password:g('password').value,firstName:v('firstName'),lastName:v('lastName'),
+        hospitalName:v('hospitalName'),
+        hospitalPhone:v('hospitalPhone')||undefined,
+        hospitalAddress:v('hospitalAddress')||undefined,
+        nhifCode:v('nhifCode')||undefined})
+    });
+    const d=await r.json();
+    if(!r.ok){err(d.error||'Setup failed.');btn.disabled=false;btn.textContent='Complete Setup →';return;}
+    show('p2');steps(2);
+  }catch(e){err('Error: '+e.message);btn.disabled=false;btn.textContent='Complete Setup →';}
+}
+function launch(){window.location.href=REDIRECT;}
+</script></body></html>`;
+
 // ── Start API server ──────────────────────────────────────────
 async function startApiServer() {
   log("INFO", `Loading server modules from ${BUNDLE_DIR}`);
@@ -112,6 +246,7 @@ async function startApiServer() {
   services = mods;
 
   const { db, apiRouter, setupRouter, wsServer, seedPermissions, createDefaultSuperAdmin } = mods;
+  _db = db; // expose to isSetupComplete()
   const { Hono }  = await import("hono");
   const { serve } = await import("@hono/node-server");
 
@@ -119,8 +254,8 @@ async function startApiServer() {
   await db.initialize(DATA_DIR);
   log("INFO", "Database initialized at " + DATA_DIR);
 
-  // Seed roles/permissions (idempotent — safe to call every time).
-  // Never create a default admin — the setup wizard creates the first admin account.
+  // Seed roles/permissions (idempotent). Never create a default admin —
+  // the setup wizard (POST /auth/setup-admin) creates the first admin account.
   seedPermissions();
   log("INFO", "RBAC permissions seeded");
 
@@ -215,10 +350,11 @@ async function startApiServer() {
   // Mount routers
   const rootApp = new Hono();
 
-  // Setup status endpoint — read by root.tsx before auth check
-  rootApp.get("/api/setup/status", (c) => {
-    return c.json({ complete: isSetupComplete() });
-  });
+  // Setup wizard served directly by Hono (no React dependency)
+  rootApp.get("/setup-wizard", (c) => c.html(SETUP_WIZARD_HTML(IS_DEV)));
+
+  // Setup status for root.tsx gate
+  rootApp.get("/api/setup/status", (c) => c.json({ complete: isSetupComplete() }));
 
   rootApp.route("/", authAdapter);
   rootApp.route("/", setupRouter);
@@ -239,14 +375,10 @@ async function startApiServer() {
 
 // ── Create main window ────────────────────────────────────────
 function createWindow() {
-  const iconFile = path.join(__dirname, '../icon.ico');
-  const iconExists = fs.existsSync(iconFile);
-
   mainWindow = new BrowserWindow({
     width: 1400, height: 880,
     minWidth: 1024, minHeight: 680,
     title: APP_NAME,
-    icon: iconExists ? iconFile : undefined,
     backgroundColor: "#0f172a",
     show: false,
     titleBarStyle: "hiddenInset",
@@ -272,7 +404,7 @@ function createWindow() {
 
   mainWindow.once("ready-to-show", () => {
     mainWindow.show();
-    // DevTools: open manually with Ctrl+Shift+I
+    // DevTools: Ctrl+Shift+I
   });
 
   // Hide to tray instead of closing
@@ -280,36 +412,16 @@ function createWindow() {
     if (!app.isQuitting) { e.preventDefault(); mainWindow.hide(); }
   });
 
-  // root.tsx checks /api/setup/status and redirects to /account/setup automatically.
-  // No need to pass hash — just load the root and let React Router handle it.
-  mainWindow.webContents.on("did-fail-load", (_, code, desc) => {
-    if (code === -3) return; // ERR_ABORTED — ignore
-    log("WARN", `Page load failed (${code}: ${desc}) — retrying in 2s`);
-    setTimeout(() => {
-      if (!mainWindow) return;
-      if (IS_DEV) mainWindow.loadURL("http://localhost:5173/").catch(() => {});
-      else mainWindow.loadFile(path.join(ROOT, "build/client/index.html")).catch(() => {});
-    }, 2000);
-  });
-
-  if (IS_DEV) {
-    mainWindow.loadURL("http://localhost:5173/").catch((err) => {
-      log("WARN", "Initial loadURL failed: " + err.message);
-    });
-  } else {
-    mainWindow.loadFile(path.join(ROOT, "build/client/index.html")).catch((err) => {
-      log("WARN", "Initial loadFile failed: " + err.message);
-    });
-  }
+  // URL is set by the caller after createWindow() returns.
 }
 
 // ── System tray ───────────────────────────────────────────────
 function createTray() {
   try {
-    const trayIconPath = fs.existsSync(path.join(ROOT, "build/server/tray.ico"))
-      ? path.join(ROOT, "build/server/tray.ico")
-      : path.join(__dirname, "../icon.png");
-    const icon = nativeImage.createFromPath(trayIconPath).resize({ width: 16, height: 16 });
+    const iconPath = path.join(ROOT, "build/server/tray.ico");
+    const icon = fs.existsSync(iconPath)
+      ? nativeImage.createFromPath(iconPath).resize({ width: 16, height: 16 })
+      : nativeImage.createEmpty();
 
     tray = new Tray(icon);
     const ip = getLocalIP();
@@ -469,8 +581,16 @@ app.whenReady().then(async () => {
   setupIPC();
   createTray();
 
-  // root.tsx handles all routing via /api/setup/status + /api/auth/token checks
   createWindow();
+
+  // Serve setup wizard from Hono when not configured — no React dependency.
+  // After setup completes, wizard redirects to the React app.
+  if (isSetupComplete()) {
+    if (IS_DEV) mainWindow.loadURL("http://localhost:5173/").catch(() => {});
+    else mainWindow.loadFile(path.join(ROOT, "build/client/index.html")).catch(() => {});
+  } else {
+    mainWindow.loadURL("http://localhost:8080/setup-wizard").catch(() => {});
+  }
   log("INFO", `Ready. Staff connect to: http://${getLocalIP()}:${APP_PORT}`);
 });
 
